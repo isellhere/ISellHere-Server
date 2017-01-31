@@ -1,0 +1,3 @@
+PLACE CONFIGURATIONS IN THIS PACKAGE
+===================================
+REMOVE THIS FILE

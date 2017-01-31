@@ -1,0 +1,3 @@
+PLACE BEANS IN THIS PACKAGE
+===================================
+REMOVE THIS FILE

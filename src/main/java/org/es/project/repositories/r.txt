@@ -1,0 +1,3 @@
+PLACE REPOSITORIES IN THIS PACKAGE
+===================================
+REMOVE THIS FILE

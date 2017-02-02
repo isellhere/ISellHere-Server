@@ -36,10 +36,21 @@ public class PointOfSale {
 	public PointOfSale(User creator, String name, double longitude, double latitude){
 		this(creator, name, longitude, latitude, "", null);
 	}
+
+	public void addProduct(String name, double price, String comment, Image image){
+		
+	}
+
+	public void editProduct(String name, double price, String comment, Image image){
+		
+	}
+	
+	public void deleteProduct(String name){
+		
+	}
 	
 	//falta os metodos, lembrar que algumas operações só o criador pode fazer
 	
-
 	
 
 	

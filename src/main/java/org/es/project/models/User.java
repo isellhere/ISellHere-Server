@@ -25,28 +25,41 @@ public class User {
 		return password;
 	}
 	
-	public void editUser(String username, String email, String senha){
-		
+	//falta inserir restrição de senha
+	public void setPassword(String password){
+		this.password = password;
 	}
 	
 	public void createPointOfSale(String name, double longitude, double latitude, String comment, Image image){
 		
 	}
 	
-	public void editPointOfSale(String name, double longitude, double latitude, String comment, Image image){
-		
+	public void editPointOfSale(PointOfSale pointOfSale , String name, String comment, Image image){
+		pointOfSale.setName(name);
+		pointOfSale.setComment(comment);
+		pointOfSale.setImage(image);
 	}
 	
+	public void editProduct(Product product, String name, double price, String comment, Image image){
+		product.setName(name);
+		product.setPrice(price);
+		product.setComment(comment);
+		product.setImage(image);
+	}
+	
+	//TODO
 	public void deletePointOfSale(String name, double longitude, double latitude){
 		
 	}
 	
-	public PointOfSale searchPointOfSale(int distance){
+	//TODO
+	public PointOfSale searchPointOfSale(String pointName, int distance){
 		return null;
 		
 	}
 	
-	public Product searchProduct(int distance){
+	//TODO
+	public Product searchProduct(String productName, int distance){
 		return null;
 		
 	}

@@ -4,24 +4,42 @@ import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
+@Entity
 public class PointOfSale {
+	@Id
+	@GeneratedValue
+	private Long id;
+	
+	@ManyToOne(cascade = CascadeType.ALL)
 	private User creator;
+	
+	@Column(unique = true)
 	private String name;
-	private double longitude;
-	private double latitude;
 	private String comment;
 	private Image image;
+	@OneToOne(cascade = CascadeType.ALL)
+	private Location location;
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<Product> products;
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<Evaluation> evaluations;
 	
 	
 	public PointOfSale(User creator, String name, double longitude, double latitude, String comment, Image image){
 		this.creator = creator;
 		this.name = name;
-		this.longitude = longitude;
-		this.latitude = latitude;
 		this.comment = comment;
 		this.image = image;
+		location = new Location(longitude, latitude);
 		products = new ArrayList<>();
 		evaluations = new ArrayList<>();
 	}
@@ -114,12 +132,12 @@ public class PointOfSale {
 
 
 	public double getLongitude() {
-		return longitude;
+		return location.getLongitude();
 	}
 
 
 	public double getLatitude() {
-		return latitude;
+		return location.getLatitude();
 	}
 
 
@@ -135,6 +153,10 @@ public class PointOfSale {
 
 	public List<Product> getProducts() {
 		return products;
+	}
+	
+	public Long getId(){
+		return id;
 	}
 
 

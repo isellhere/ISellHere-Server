@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("TO_BE_DEFINED")
+@RequestMapping("/server/users")
 public class UserController {
 	
 	private UserService userService;

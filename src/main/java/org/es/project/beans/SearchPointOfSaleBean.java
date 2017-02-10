@@ -1,16 +1,17 @@
 package org.es.project.beans;
 
+import org.es.project.models.Location;
 import org.es.project.models.User;
 
 public class SearchPointOfSaleBean {
 	private User user;
 	private String pointName;
-	private int distance;
+	private Location location;
 	
-	public SearchPointOfSaleBean(User user, String pointName, int distance){
+	public SearchPointOfSaleBean(User user, String pointName, Location location){
 		this.user = user;
 		this.pointName = pointName;
-		this.distance = distance;
+		this.location = location;
 	}
 	
 	public SearchPointOfSaleBean(){
@@ -25,12 +26,12 @@ public class SearchPointOfSaleBean {
 		this.pointName = pointName;
 	}
 
-	public int getDistance() {
-		return distance;
+	public Location getLocation() {
+		return location;
 	}
 
-	public void setDistance(int distance) {
-		this.distance = distance;
+	public void setLocation(Location location) {
+		this.location = location;
 	}
 
 	public User getUser() {

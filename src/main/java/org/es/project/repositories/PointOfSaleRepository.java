@@ -16,4 +16,8 @@ public interface PointOfSaleRepository extends CrudRepository<PointOfSale, Long>
 	
 	@Query(value = "Select pointofsale from PointOfSale pointofsale where pointofsale.location=:location")
 	public PointOfSale findByLocation(@Param("location") Location location);
+
+	@Query(value = "Select pointofsale from PointOfSale pointofsale where pointofsale.name =: name"
+			+ " and pointofsale.location =: location")
+	public PointOfSale findByNameNLocation(@Param ("location") Location location, @Param ("name") String name);
 }

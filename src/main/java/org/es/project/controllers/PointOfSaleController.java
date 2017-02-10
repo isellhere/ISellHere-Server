@@ -7,7 +7,9 @@ import org.es.project.beans.EditPointOfSaleBean;
 import org.es.project.beans.SearchPointOfSaleBean;
 import org.es.project.exceptions.Validator;
 import org.es.project.models.PointOfSale;
+import org.es.project.services.implementations.PointOfSaleServiceImpl;
 import org.es.project.services.interfaces.PointOfSaleService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/pointofsale")
 
 public class PointOfSaleController {
+	
 	private PointOfSaleService pointOfSaleService;
 	
 	@RequestMapping(value = "/new", 
@@ -85,12 +88,15 @@ public class PointOfSaleController {
 		
 		if(Validator.isEmpty(deletedPoint)){
 			return new ResponseEntity<>(deletedPoint, HttpStatus.NOT_FOUND);
-		
+			
 		}else{
 			
 			return new ResponseEntity<>(deletedPoint, HttpStatus.OK);
+			}
 		}
-}
 	
-	
+	@Autowired
+	public void setPointOfSaleService(PointOfSaleServiceImpl pointOfSaleServiceImpl) {
+		this.pointOfSaleService = pointOfSaleServiceImpl;
+	}
 }

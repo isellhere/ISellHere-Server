@@ -1,6 +1,5 @@
 package org.es.project.beans;
 
-import java.awt.Image;
 import java.util.List;
 
 import org.es.project.models.Evaluation;
@@ -13,12 +12,12 @@ public class AddNDeletePointOfSaleBean {
 	private double pointLongitude;
 	private double pointLatitude;
 	private String pointComment;
-	private Image pointImage;
+	private String pointImage;
 	private List<Product> pointProducts;
 	private List<Evaluation> pointEvaluations;
 	
 	
-	public AddNDeletePointOfSaleBean(User creator, String pointName, double pointLongitude, double pointLatitude, String pointComment, Image pointImage,
+	public AddNDeletePointOfSaleBean(User creator, String pointName, double pointLongitude, double pointLatitude, String pointComment, String pointImage,
 			List<Product> pointProducts, List<Evaluation> pointEvaluations) {
 		this.creator = creator;
 		this.pointName = pointName;
@@ -74,11 +73,11 @@ public class AddNDeletePointOfSaleBean {
 		this.pointComment = pointComment;
 	}
 
-	public Image getPointImage() {
+	public String getPointImage() {
 		return pointImage;
 	}
 
-	public void setPointImage(Image pointImage) {
+	public void setPointImage(String pointImage) {
 		this.pointImage = pointImage;
 	}
 

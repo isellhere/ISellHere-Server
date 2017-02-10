@@ -8,7 +8,9 @@ import org.es.project.exceptions.ExceptionHandler;
 import org.es.project.exceptions.InvalidRegistrationBodyException;
 import org.es.project.exceptions.Validator;
 import org.es.project.models.User;
+import org.es.project.services.implementations.UserServiceImpl;
 import org.es.project.services.interfaces.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -92,6 +94,11 @@ public class UserController {
 		} catch(DataAccessException dae){
 			throw new ServletException("An error has occurred: " +dae.getMessage());
 		}
+	}
+	
+	@Autowired
+	public void setUserService(UserServiceImpl userServiceImpl) {
+		this.userService = userServiceImpl;
 	}
 	
 	

@@ -56,4 +56,9 @@ public class PointOfSaleServiceImpl implements PointOfSaleService{
 		return result;
 	}
 
+	@Override
+	public PointOfSale findByNameNLocation(Location location, String name) {
+		return pointOfSaleRepository.findByNameNLocation(location, name);
+	}
+
 }

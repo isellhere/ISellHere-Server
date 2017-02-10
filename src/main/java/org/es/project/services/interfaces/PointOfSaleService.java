@@ -11,5 +11,6 @@ public interface PointOfSaleService {
 	public PointOfSale save(PointOfSale pointOfSale);
 	public PointOfSale delete(Long id);
 	public PointOfSale update(PointOfSale pointOfSale);
+	public PointOfSale findByNameNLocation(Location location, String name);
 
 }

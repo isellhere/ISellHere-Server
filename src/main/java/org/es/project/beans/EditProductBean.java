@@ -1,6 +1,5 @@
 package org.es.project.beans;
 
-import java.awt.Image;
 import java.util.List;
 
 import org.es.project.models.Evaluation;
@@ -14,13 +13,13 @@ public class EditProductBean {
 	private String productName;
 	private String productComment;
 	private double productPrice;
-	private Image productImage;
+	private String productImage;
 	private List<Evaluation> productEvaluations;
 	private Product selectedProduct;
 	
 	
 	public EditProductBean(User creator, PointOfSale pointOfSale, String productName, String productComment,
-			double productPrice, Image productImage, List<Evaluation> productEvaluations, Product selectedProduct) {
+			double productPrice, String productImage, List<Evaluation> productEvaluations, Product selectedProduct) {
 		this.creator = creator;
 		this.pointOfSale = pointOfSale;
 		this.productName = productName;
@@ -75,11 +74,11 @@ public class EditProductBean {
 		this.productPrice = productPrice;
 	}
 
-	public Image getProductImage() {
+	public String getProductImage() {
 		return productImage;
 	}
 
-	public void setProductImage(Image productImage) {
+	public void setProductImage(String productImage) {
 		this.productImage = productImage;
 	}
 

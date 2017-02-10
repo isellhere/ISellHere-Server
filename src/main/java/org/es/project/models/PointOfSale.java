@@ -1,6 +1,5 @@
 package org.es.project.models;
 
-import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +24,7 @@ public class PointOfSale {
 	@Column(unique = true)
 	private String name;
 	private String comment;
-	private Image image;
+	private String image;
 	@OneToOne(cascade = CascadeType.ALL)
 	private Location location;
 	@OneToMany(cascade = CascadeType.ALL)
@@ -34,7 +33,7 @@ public class PointOfSale {
 	private List<Evaluation> evaluations;
 	
 	
-	public PointOfSale(User creator, String name, double longitude, double latitude, String comment, Image image){
+	public PointOfSale(User creator, String name, double longitude, double latitude, String comment, String image){
 		this.creator = creator;
 		this.name = name;
 		this.comment = comment;
@@ -49,7 +48,7 @@ public class PointOfSale {
 		this(creator, name, longitude, latitude, comment, null);
 	}
 	
-	public PointOfSale(User creator, String name, double longitude, double latitude, Image image){
+	public PointOfSale(User creator, String name, double longitude, String image, double latitude){
 		this(creator, name, longitude, latitude, "", image);
 	}
 	
@@ -57,15 +56,15 @@ public class PointOfSale {
 		this(creator, name, longitude, latitude, "", null);
 	}
 
-	public void addProduct(User creator, String name, double price, String comment, Image image){
+	public void addProduct(User creator, String name, double price, String comment, String image){
 		Product product = new Product(creator, this, name, price, comment, image);
 		products.add(product);
 	}
-	public void addProduct(User creator, String name, double price, String comment){
+	public void addProduct(User creator, String name, String comment,  double price){
 		Product product = new Product(creator, this, name, price, comment);
 		products.add(product);
 	}
-	public void addProduct(User creator, String name, double price, Image image){
+	public void addProduct(User creator, String name, double price, String image){
 		Product product = new Product(creator, this, name, price, image);
 		products.add(product);
 	}
@@ -74,7 +73,7 @@ public class PointOfSale {
 		products.add(product);
 	}
 
-	public void editProduct(String name, double price, String comment, Image image){
+	public void editProduct(String name, double price, String comment, String image){
 		
 	}
 	
@@ -146,7 +145,7 @@ public class PointOfSale {
 	}
 
 
-	public Image getImage() {
+	public String getImage() {
 		return image;
 	}
 
@@ -170,7 +169,7 @@ public class PointOfSale {
 	}
 
 
-	public void setImage(Image image) {
+	public void setImage(String image) {
 		this.image = image;
 	}
 	

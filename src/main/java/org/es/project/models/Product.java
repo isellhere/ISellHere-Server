@@ -1,6 +1,5 @@
 package org.es.project.models;
 
-import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,12 +22,12 @@ public class Product {
 	private String name;
 	private String comment;
 	private double price;
-	private Image image;
+	private String image;
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Evaluation> evaluations;
 	
 	
-	public Product(User creator, PointOfSale pointOfSale, String name, double price, String comment, Image image){
+	public Product(User creator, PointOfSale pointOfSale, String name, double price, String comment, String image){
 		this.creator = creator;
 		this.pointOfSale = pointOfSale;
 		this.name = name;
@@ -42,7 +41,7 @@ public class Product {
 		this(creator, pointOfSale, name, price, comment, null);
 	}
 	
-	public Product(User creator, PointOfSale pointOfSale, String name, double price, Image image){
+	public Product(User creator, PointOfSale pointOfSale, String name, String image, double price){
 		this(creator, pointOfSale, name, price, "", image);
 	}
 	
@@ -103,7 +102,7 @@ public class Product {
 		return price;
 	}
 
-	public Image getImage() {
+	public String getImage() {
 		return image;
 	}
 	
@@ -128,7 +127,7 @@ public class Product {
 		this.price = price;
 	}
 
-	public void setImage(Image image) {
+	public void setImage(String image) {
 		this.image = image;
 	}
 

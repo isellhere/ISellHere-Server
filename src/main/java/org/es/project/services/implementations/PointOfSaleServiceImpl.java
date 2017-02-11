@@ -5,7 +5,9 @@ import org.es.project.models.PointOfSale;
 import org.es.project.repositories.PointOfSaleRepository;
 import org.es.project.services.interfaces.PointOfSaleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class PointOfSaleServiceImpl implements PointOfSaleService{
 	
 	private PointOfSaleRepository pointOfSaleRepository;

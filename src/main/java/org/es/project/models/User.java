@@ -1,7 +1,5 @@
 package org.es.project.models;
 
-import java.awt.Image;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,17 +24,17 @@ public class User {
 }
 
 	
-	public void createPointOfSale(String name, double longitude, double latitude, String comment, Image image){
+	public void createPointOfSale(String name, double longitude, double latitude, String comment, String image){
 		
 	}
 	
-	public void editPointOfSale(PointOfSale pointOfSale , String name, String comment, Image image){
+	public void editPointOfSale(PointOfSale pointOfSale , String name, String comment, String image){
 		pointOfSale.setName(name);
 		pointOfSale.setComment(comment);
 		pointOfSale.setImage(image);
 	}
 	
-	public void editProduct(Product product, String name, double price, String comment, Image image){
+	public void editProduct(Product product, String name, double price, String comment, String image){
 		product.setName(name);
 		product.setPrice(price);
 		product.setComment(comment);

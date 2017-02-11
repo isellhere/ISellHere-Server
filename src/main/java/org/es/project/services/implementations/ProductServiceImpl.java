@@ -58,4 +58,9 @@ public class ProductServiceImpl implements ProductService {
 		return result;
 	}
 
+	@Override
+	public Product findByNameNLocation(Location location, String name) {
+		return productRepository.findByNameNLocation(location, name);
+	}
+
 }

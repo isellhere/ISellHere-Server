@@ -12,4 +12,5 @@ public interface ProductService {
 	public Product save(Product newProduct);
 	public Product delete(Long id);
 	public Product update(Product product);
+	public Product findByNameNLocation(Location location, String name);
 }

@@ -1,4 +1,4 @@
-package org.es.project.util;
+package org.es.project.util.tokens;
 
 import org.es.project.models.User;
 

@@ -5,7 +5,9 @@ import org.es.project.models.Product;
 import org.es.project.repositories.ProductRepository;
 import org.es.project.services.interfaces.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ProductServiceImpl implements ProductService {
 	
 	private ProductRepository productRepository;

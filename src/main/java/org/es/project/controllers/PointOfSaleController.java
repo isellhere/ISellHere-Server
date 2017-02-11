@@ -39,8 +39,7 @@ public class PointOfSaleController {
 		pointOfSaleService.save(newPoint);
 		return new ResponseEntity<>(newPoint, HttpStatus.CREATED); 
 	}
-	
-	
+		
 	@RequestMapping(value = "/get",
 					method = RequestMethod.POST,
 			        produces = MediaType.APPLICATION_JSON_VALUE)
@@ -53,7 +52,7 @@ public class PointOfSaleController {
 		if(Validator.isEmpty(point)){
 			result = new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}else{
-			result = new ResponseEntity<>(HttpStatus.OK);
+			result = new ResponseEntity<>(point, HttpStatus.OK);
 		}
 		
 		return result;
@@ -87,10 +86,9 @@ public class PointOfSaleController {
 		PointOfSale deletedPoint = pointOfSaleService.delete(id);
 		
 		if(Validator.isEmpty(deletedPoint)){
-			return new ResponseEntity<>(deletedPoint, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			
 		}else{
-			
 			return new ResponseEntity<>(deletedPoint, HttpStatus.OK);
 			}
 		}

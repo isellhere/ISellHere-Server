@@ -7,6 +7,7 @@ import org.es.project.exceptions.ExceptionHandler;
 import org.es.project.models.User;
 import org.es.project.services.implementations.UserServiceImpl;
 import org.es.project.services.interfaces.UserService;
+import org.es.project.util.ServerConstants;
 import org.es.project.util.tokens.HS512_24Hours_Token;
 import org.es.project.util.tokens.TokenBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +20,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/server/authentication")
+@RequestMapping(ServerConstants.AUTHENTICATION_REQUEST)
 public class AuthenticationController {
 	
 	private UserService userService;
 	private TokenBuilder tokenBuilder;
 	
-	@RequestMapping(value = "/login",
+	@RequestMapping(value = "/new",
 			method = RequestMethod.POST, 
 			produces = MediaType.APPLICATION_JSON_VALUE,
 			consumes = MediaType.APPLICATION_JSON_VALUE)

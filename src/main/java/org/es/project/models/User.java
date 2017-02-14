@@ -41,22 +41,6 @@ public class User {
 		product.setImage(image);
 	}
 	
-	//TODO
-	public void deletePointOfSale(String name, double longitude, double latitude){
-		
-	}
-	
-	//TODO
-	public PointOfSale searchPointOfSale(String pointName, int distance){
-		return null;
-		
-	}
-	
-	//TODO
-	public Product searchProduct(String productName, int distance){
-		return null;
-		
-	}
 	
 	//GETTERS AND SETTERS
 	
@@ -79,6 +63,19 @@ public class User {
 	//falta inserir restrição de senha
 	public void setPassword(String password){
 		this.password = password;
+	}
+	
+	@Override
+	public boolean equals(Object obj){
+		if(!(obj instanceof User)){
+			return false;
+		}
+		User aux = (User)obj;
+		if(username.equals(aux.getUsername()) && password.equals(aux.getPassword()) && email.equals(aux.getEmail())){
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 }

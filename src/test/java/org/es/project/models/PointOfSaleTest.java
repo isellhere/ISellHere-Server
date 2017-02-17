@@ -147,7 +147,7 @@ public class PointOfSaleTest {
 	}
 
 	@Test
-	public void deleProductTest() {
+	public void deleteProductTest() {
 
 		point4.addProduct(user4, "product1", null, 100.99);
 		point4.addProduct(user4, "product2", null, 15.99);
@@ -199,7 +199,7 @@ public class PointOfSaleTest {
 		// Assert.assertArrayEquals(point1.showRecentComments(), strList);
 
 	}
-	
+
 	@Test
 	public void showProductGradeTest1() {
 		point1.addEvaluation(10);
@@ -211,19 +211,62 @@ public class PointOfSaleTest {
 		Assert.assertEquals(point1.showPointOfSaleGrade(), 36.0 / 5, 0.00001);
 
 	}
-	
+
 	@Test
-	public void showProductGradeTest2(){
+	public void showProductGradeTest2() {
 		point1.addEvaluation(10, "Wabbajack");
 		point1.addEvaluation(5, "We exist");
 		point1.addEvaluation(4, "The show must go on");
-		Assert.assertEquals(point1.showPointOfSaleGrade(), 19.0/3, 0.00001);
+		Assert.assertEquals(point1.showPointOfSaleGrade(), 19.0 / 3, 0.00001);
 		point1.addEvaluation(9, "Despair");
 		point1.addEvaluation(8, "Bello");
-		Assert.assertEquals(point1.showPointOfSaleGrade(), 36.0/5, 0.00001);
+		Assert.assertEquals(point1.showPointOfSaleGrade(), 36.0 / 5, 0.00001);
 
-		
 	}
-	
+
+	@Test
+	public void getCreatorTest() {
+		Assert.assertEquals(point1.getCreator(), new User("user 1", "user1@email.com", "1a2b3c4d5e"));
+		Assert.assertEquals(point2.getCreator(), new User("user 2", "use2@email.com", "12a34fghdsfa1"));
+		Assert.assertEquals(point3.getCreator(), new User("user 3", "user3@email.com", "dadaf21973"));
+		Assert.assertEquals(point4.getCreator(), new User("user 4", "use4@email.com", "65574fgfsfav1"));
+
+	}
+
+	@Test
+	public void getNameTest() {
+		Assert.assertEquals(point1.getName(), "Crack");
+		Assert.assertEquals(point2.getName(), "Hot Deal");
+		Assert.assertEquals(point3.getName(), "The corner");
+		Assert.assertEquals(point4.getName(), "The Pit");
+
+	}
+
+	@Test
+	public void getLongitudeTest() {
+		Assert.assertEquals(point1.getLongitude(), 23.0987, 0.00001);
+		Assert.assertEquals(point2.getLongitude(), 134.0001, 0.00001);
+		Assert.assertEquals(point3.getLongitude(), 111.222, 0.00001);
+		Assert.assertEquals(point4.getLongitude(), 345.0009, 0.00001);
+
+	}
+
+	@Test
+	public void getLatitudeTest() {
+		Assert.assertEquals(point1.getLatitude(), 134.567, 0.00001);
+		Assert.assertEquals(point2.getLatitude(), 12.67, 0.00001);
+		Assert.assertEquals(point3.getLatitude(), 111.00086, 0.00001);
+		Assert.assertEquals(point4.getLatitude(), 100.10001, 0.00001);
+
+	}
+
+	@Test
+	public void getCommentTest() {
+		Assert.assertEquals(point1.getComment(), "");
+		Assert.assertEquals(point2.getComment(), "Memorable");
+		Assert.assertEquals(point3.getComment(), "");
+		Assert.assertEquals(point4.getComment(), "Lit as hell");
+
+	}
 
 }

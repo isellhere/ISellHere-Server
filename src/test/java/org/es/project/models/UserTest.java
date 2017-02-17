@@ -12,7 +12,7 @@ public class UserTest {
 	@Before
 	public void initialization() {
 		user1 = new User("user 1", "user1@email.com", "1a2b3c4d5e");
-		user2 = new User("user 2", "use2@email.com", "12a34fghdsfa1");
+		user2 = new User("user 2", "user2@email.com", "12a34fghdsfa1");
 	}
 
 	@Test
@@ -20,9 +20,6 @@ public class UserTest {
 		Assert.assertEquals(user1.getUsername(), "user 1");
 		Assert.assertEquals(user1.getEmail(), "user1@email.com");
 		Assert.assertEquals(user1.getPassword(), "1a2b3c4d5e");
-		user1.setPassword("12345678765432");
-		Assert.assertEquals(user1.getPassword(), "12345678765432");
-
 	}
 
 	@Test
@@ -50,9 +47,37 @@ public class UserTest {
 	}
 
 	@Test
+	public void getUsernameTest() {
+		Assert.assertEquals(user1.getUsername(), "user 1");
+		Assert.assertEquals(user2.getUsername(), "user 2");
+
+	}
+
+	@Test
+	public void getEmailTest() {
+		Assert.assertEquals(user1.getEmail(), "user1@email.com");
+		Assert.assertEquals(user2.getEmail(), "user2@email.com");
+
+	}
+
+	@Test
+	public void getPasswordTest() {
+		Assert.assertEquals(user1.getPassword(), "1a2b3c4d5e");
+		Assert.assertEquals(user2.getPassword(), "12a34fghdsfa1");
+
+	}
+
+	@Test
+	public void setPasswordTest() {
+		user1.setPassword("12345678765432");
+		Assert.assertEquals(user1.getPassword(), "12345678765432");
+
+	}
+
+	@Test
 	public void equalsTest() {
 		Assert.assertEquals(user1, new User("user 1", "user1@email.com", "1a2b3c4d5e"));
-		Assert.assertEquals(user2, new User("user 2", "use2@email.com", "12a34fghdsfa1"));
+		Assert.assertEquals(user2, new User("user 2", "user2@email.com", "12a34fghdsfa1"));
 		Assert.assertNotEquals(user1, user2);
 		Assert.assertNotEquals(user1, new User("user 2", "use2@email.com", "12a34fghdsfa1"));
 		Assert.assertNotEquals(user2, new User("user 1", "user1@email.com", "1a2b3c4d5e"));

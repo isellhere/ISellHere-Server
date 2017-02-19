@@ -1,5 +1,6 @@
 package org.es.project.models;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -148,34 +149,15 @@ public class Product {
 
 	@Override
 	public boolean equals(Object obj) {
+		if(!(obj instanceof Product)){
+			return false;
+		}
 		Product other = (Product) obj;
-		if (creator == null) {
-			if (other.creator != null)
-				return false;
-			
-		} else if (!creator.equals(other.creator))
-			return false;
+		if(creator.equals(other.getCreator()) && name.equals(other.getName()) && pointOfSale.equals(other.getPointOfSale())){
+			return true;
+		}else{
+		return false;}
 		
-		if (id == null) {
-			if (other.id != null)
-				return false;
-			
-		} else if (!id.equals(other.id))
-			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-			
-		} else if (!name.equals(other.name))
-			return false;
-		
-		if (pointOfSale == null) {
-			if (other.pointOfSale != null)
-				return false;
-			
-		} else if (!pointOfSale.equals(other.pointOfSale))
-			return false;
-		return true;
 	}
 	
 	

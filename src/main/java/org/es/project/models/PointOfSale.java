@@ -1,5 +1,6 @@
 package org.es.project.models;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class PointOfSale {
 	@Column(unique = true)
 	private String name;
 	private String comment;
-	private String image;
+	private File image;
 	@OneToOne(cascade = CascadeType.ALL)
 	private Location location;
 	@OneToMany(cascade = CascadeType.ALL)
@@ -35,7 +36,7 @@ public class PointOfSale {
 	private List<Evaluation> evaluations;
 	
 	
-	public PointOfSale(User creator, String name, double longitude, double latitude, String comment, String image){
+	public PointOfSale(User creator, String name, double longitude, double latitude, String comment, File image){
 		this.creator = creator;
 		this.name = name;
 		this.comment = comment;
@@ -50,7 +51,7 @@ public class PointOfSale {
 		this(creator, name, longitude, latitude, comment, null);
 	}
 	
-	public PointOfSale(User creator, String name, double longitude, String image, double latitude){
+	public PointOfSale(User creator, String name, double longitude, File image, double latitude){
 		this(creator, name, longitude, latitude, "", image);
 	}
 	
@@ -58,7 +59,7 @@ public class PointOfSale {
 		this(creator, name, longitude, latitude, "", null);
 	}
 
-	public void addProduct(User creator, String name, double price, String comment, String image){
+	public void addProduct(User creator, String name, double price, String comment, File image){
 		Product product = new Product(creator, this, name, price, comment, image);
 		getProducts().add(product);
 	}
@@ -162,7 +163,7 @@ public class PointOfSale {
 	}
 
 
-	public String getImage() {
+	public File getImage() {
 		return image;
 	}
 
@@ -190,7 +191,7 @@ public class PointOfSale {
 	}
 
 
-	public void setImage(String image) {
+	public void setImage(File image) {
 		this.image = image;
 	}
 

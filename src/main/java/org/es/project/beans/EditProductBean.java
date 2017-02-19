@@ -1,5 +1,7 @@
 package org.es.project.beans;
 
+import java.io.File;
+
 import org.es.project.models.Product;
 import org.es.project.models.User;
 
@@ -8,11 +10,11 @@ public class EditProductBean {
 	private String productName;
 	private String productComment;
 	private double productPrice;
-	private String productImage;
+	private File productImage;
 	private Product selectedProduct;
 	
 	
-	public EditProductBean(User requester, String productName, String productComment, double productPrice, String productImage, Product selectedProduct) {
+	public EditProductBean(User requester, String productName, String productComment, double productPrice, File productImage, Product selectedProduct) {
 		this.requester = requester;
 		this.productName = productName;
 		this.productComment = productComment;
@@ -57,11 +59,11 @@ public class EditProductBean {
 		this.productPrice = productPrice;
 	}
 
-	public String getProductImage() {
+	public File getProductImage() {
 		return productImage;
 	}
 
-	public void setProductImage(String productImage) {
+	public void setProductImage(File productImage) {
 		this.productImage = productImage;
 	}
 

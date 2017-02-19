@@ -1,5 +1,6 @@
 package org.es.project.beans;
 
+import java.io.File;
 import java.util.List;
 
 import org.es.project.models.Evaluation;
@@ -12,12 +13,12 @@ public class AddNDeleteProductBean {
 	private String productName;
 	private String productComment;
 	private double productPrice;
-	private String productImage;
+	private File productImage;
 	private List<Evaluation> productEvaluations;
 	
 	
 	public AddNDeleteProductBean(User creator, PointOfSale pointOfSale, String productName, String productComment,
-			double productPrice, String productImage, List<Evaluation> productEvaluations) {
+			double productPrice, File productImage, List<Evaluation> productEvaluations) {
 		this.creator = creator;
 		this.pointOfSale = pointOfSale;
 		this.productName = productName;
@@ -71,11 +72,11 @@ public class AddNDeleteProductBean {
 		this.productPrice = productPrice;
 	}
 
-	public String getProductImage() {
+	public File getProductImage() {
 		return productImage;
 	}
 
-	public void setProductImage(String productImage) {
+	public void setProductImage(File productImage) {
 		this.productImage = productImage;
 	}
 

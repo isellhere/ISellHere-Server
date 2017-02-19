@@ -1,6 +1,7 @@
 package org.es.project.models;
 
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,12 +26,12 @@ public class Product {
 	private String name;
 	private String comment;
 	private double price;
-	private String image;
+	private File image;
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Evaluation> evaluations;
 	
 	
-	public Product(User creator, PointOfSale pointOfSale, String name, double price, String comment, String image){
+	public Product(User creator, PointOfSale pointOfSale, String name, double price, String comment, File image){
 		this.creator = creator;
 		this.pointOfSale = pointOfSale;
 		this.name = name;
@@ -44,7 +45,7 @@ public class Product {
 		this(creator, pointOfSale, name, price, comment, null);
 	}
 	
-	public Product(User creator, PointOfSale pointOfSale, String name, String image, double price){
+	public Product(User creator, PointOfSale pointOfSale, String name, File image, double price){
 		this(creator, pointOfSale, name, price, "", image);
 	}
 	
@@ -117,7 +118,7 @@ public class Product {
 		return price;
 	}
 
-	public String getImage() {
+	public File getImage() {
 		return image;
 	}
 	
@@ -142,7 +143,7 @@ public class Product {
 		this.price = price;
 	}
 
-	public void setImage(String image) {
+	public void setImage(File image) {
 		this.image = image;
 	}
 

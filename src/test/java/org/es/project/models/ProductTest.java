@@ -188,9 +188,9 @@ public class ProductTest {
 	
 	@Test
 	public void getPointOfSaleTest(){
-		Assert.assertEquals(product1.getPointOfSale(),new PointOfSale(creator1, "point 1", 500, 500));
-		Assert.assertEquals(product2.getPointOfSale(),new PointOfSale(creator2, "point 2", 250, 250));
-		Assert.assertEquals(product3.getPointOfSale(),new PointOfSale(creator3, "point 3", 15, 150));
+		Assert.assertEquals(product1.getPointOfSale(),new PointOfSale(new User("user 1", "user1@mail.com", "123456Brasil"), "point 1", 500, 500));
+		Assert.assertEquals(product2.getPointOfSale(),new PointOfSale(new User("user 2", "user2@mail.com", "456789Brasil"), "point 2", 250, 250));
+		Assert.assertEquals(product4.getPointOfSale(),new PointOfSale(new User("user 3", "user3@mail.com", "1234567896543@@@Brasil"), "point 3", 15, 150));
 
 
 	}

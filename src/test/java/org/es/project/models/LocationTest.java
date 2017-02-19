@@ -11,7 +11,7 @@ public class LocationTest {
 	@Before
 	public void initialization() {
 		locat1 = new Location(100.012, 67.987);
-		locat1 = new Location(30.0132, 39.708);
+		locat2 = new Location(30.0132, 39.708);
 
 	}
 

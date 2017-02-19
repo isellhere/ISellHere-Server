@@ -3,18 +3,18 @@ package org.es.project.beans;
 import org.es.project.models.Location;
 import org.es.project.models.User;
 
-public class SearchProductBean {
+public class GetProductBean {
 	private User user;
 	private String productName;
 	private Location location;
 	
-	public SearchProductBean(User user, String productName, Location location){
+	public GetProductBean(User user, String productName, Location location){
 		this.user = user;
 		this.productName = productName;
 		this.location = location;
 	}
 	
-	public SearchProductBean(){
+	public GetProductBean(){
 		
 	}
 

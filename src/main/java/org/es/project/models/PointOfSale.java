@@ -73,15 +73,11 @@ public class PointOfSale {
 		products.add(product);
 	}
 
-	public void editProduct(String name, double price, String comment, String image){
-		
-	}
-	
+	//TODO
 	public void deleteProduct(String name){
 		
 	}
 	
-	//falta os metodos, lembrar que algumas operações só o criador pode fazer
 	
 	public void addEvaluation(int grade, String comment){
 		Evaluation evaluation = new Evaluation(grade, comment);

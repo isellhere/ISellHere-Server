@@ -2,11 +2,12 @@ package org.es.project.controllers;
 
 import org.es.project.beans.AddNDeleteProductBean;
 import org.es.project.beans.EditProductBean;
-import org.es.project.beans.SearchProductBean;
+import org.es.project.beans.GetProductBean;
 import org.es.project.exceptions.Validator;
 import org.es.project.models.Product;
 import org.es.project.services.implementations.ProductServiceImpl;
 import org.es.project.services.interfaces.ProductService;
+import org.es.project.util.ServerConstants;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,8 +19,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
 @RestController
-@RequestMapping("/server/products")
-
+@RequestMapping(ServerConstants.PRODUCT_REQUEST)
 public class ProductController {
 
 	private ProductService productService;
@@ -40,7 +40,7 @@ public class ProductController {
 	@RequestMapping(value = "/get",
 			consumes = MediaType.APPLICATION_JSON_VALUE,
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Product> getProductByName(@RequestBody SearchProductBean requestBody){
+	public ResponseEntity<Product> getProductByName(@RequestBody GetProductBean requestBody){
 		
 		Product product = productService.findByNameNLocation(requestBody.getLocation(), requestBody.getProductName());
 		

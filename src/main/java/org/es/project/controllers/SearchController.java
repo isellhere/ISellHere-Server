@@ -1,6 +1,5 @@
 package org.es.project.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -8,11 +7,11 @@ import javax.servlet.ServletException;
 import org.es.project.models.Location;
 import org.es.project.models.PointOfSale;
 import org.es.project.models.Product;
-import org.es.project.models.User;
 import org.es.project.services.implementations.PointOfSaleServiceImpl;
 import org.es.project.services.implementations.ProductServiceImpl;
 import org.es.project.services.interfaces.PointOfSaleService;
 import org.es.project.services.interfaces.ProductService;
+import org.es.project.util.ServerConstants;
 import org.es.project.util.search.SearchTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -25,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/server/search")
+@RequestMapping(ServerConstants.SEARCH_REQUEST)
 public class SearchController {
 	
 	private ProductService productService;

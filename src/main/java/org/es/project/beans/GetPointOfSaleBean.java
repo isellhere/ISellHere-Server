@@ -3,18 +3,18 @@ package org.es.project.beans;
 import org.es.project.models.Location;
 import org.es.project.models.User;
 
-public class SearchPointOfSaleBean {
+public class GetPointOfSaleBean {
 	private User user;
 	private String pointName;
 	private Location location;
 	
-	public SearchPointOfSaleBean(User user, String pointName, Location location){
+	public GetPointOfSaleBean(User user, String pointName, Location location){
 		this.user = user;
 		this.pointName = pointName;
 		this.location = location;
 	}
 	
-	public SearchPointOfSaleBean(){
+	public GetPointOfSaleBean(){
 		
 	}
 

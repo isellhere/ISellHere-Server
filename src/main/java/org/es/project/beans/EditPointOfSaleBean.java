@@ -1,5 +1,7 @@
 package org.es.project.beans;
 
+import java.io.File;
+
 import org.es.project.models.PointOfSale;
 import org.es.project.models.User;
 
@@ -8,11 +10,11 @@ public class EditPointOfSaleBean {
 	private PointOfSale selectedPoint;
 	private String pointName;
 	private String pointComment;
-	private String pointImage;
+	private File pointImage;
 
 	
 	
-	public EditPointOfSaleBean(User requester, PointOfSale selectedPoint, String pointName, String pointComment, String pointImage) {
+	public EditPointOfSaleBean(User requester, PointOfSale selectedPoint, String pointName, String pointComment, File pointImage) {
 		this.requester = requester;
 		this.selectedPoint = selectedPoint;
 		this.pointName = pointName;
@@ -56,11 +58,11 @@ public class EditPointOfSaleBean {
 		this.pointComment = pointComment;
 	}
 
-	public String getPointImage() {
+	public File getPointImage() {
 		return pointImage;
 	}
 
-	public void setPointImage(String pointImage) {
+	public void setPointImage(File pointImage) {
 		this.pointImage = pointImage;
 	}	
 	

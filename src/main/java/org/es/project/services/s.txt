@@ -1,3 +1,0 @@
-PLACE SERVICES IN THIS PACKAGE
-===================================
-REMOVE THIS FILE

@@ -44,17 +44,16 @@ public class Location {
 
 	@Override
 	public boolean equals(Object obj) {
+		if(!(obj instanceof Location)){
+			return false;
+		}
 		Location other = (Location) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
+		if(Double.doubleToLongBits(longitude) == Double.doubleToLongBits(other.getLongitude()) && 
+				Double.doubleToLongBits(latitude) == Double.doubleToLongBits(other.getLatitude())){
+			return true;
+		}else{
 			return false;
-		if (Double.doubleToLongBits(latitude) != Double.doubleToLongBits(other.latitude))
-			return false;
-		if (Double.doubleToLongBits(longitude) != Double.doubleToLongBits(other.longitude))
-			return false;
-		return true;
+		}
 	}
 
 }

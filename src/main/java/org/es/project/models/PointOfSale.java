@@ -185,34 +185,24 @@ public class PointOfSale {
 
 	@Override
 	public boolean equals(Object obj) {
+		if(!(obj instanceof PointOfSale)){
+			return false;
+		}
 		PointOfSale other = (PointOfSale) obj;
-		if (creator == null) {
-			if (other.creator != null)
-				return false;
-			
-		} else if (!creator.equals(other.creator))
-			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-			
-		} else if (!id.equals(other.id))
-			return false;
-		
-		if (location == null) {
-			if (other.location != null)
-				return false;
-			
-		} else if (!location.equals(other.location))
-			return false;
-		
-		if (name == null) {
-			if (other.name != null)
-				return false;
-			
-		} else if (!name.equals(other.name))
-			return false;
-		return true;
+		if(creator.equals(other.getCreator()) && name.equals(other.getName()) && location.equals(other.getLocation())){
+			return true;
+		}else{
+			return false;	
+		}
+	}
+
+
+	public Location getLocation() {
+		return location;
+	}
+	
+	public void setLocation(double longitude, double latitude){
+		this.location = new Location(longitude, latitude);
 	}
 	
 	

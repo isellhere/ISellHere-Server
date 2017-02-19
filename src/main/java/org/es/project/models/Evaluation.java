@@ -47,24 +47,15 @@ public class Evaluation {
 
 	@Override
 	public boolean equals(Object obj) {
+		if(!(obj instanceof Evaluation)){
+			return false;
+		}
 		Evaluation other = (Evaluation) obj;
-		if (comment == null) {
-			if (other.comment != null)
-				return false;
-			
-		} else if (!comment.equals(other.comment))
+		if(grade == other.getGrade() && comment.equals(other.getComment())){
+			return true;
+		}else{
 			return false;
-		
-		if (grade != other.grade)
-			return false;
-		
-		if (id == null) {
-			if (other.id != null)
-				return false;
-			
-		} else if (!id.equals(other.id))
-			return false;
-		return true;
+		}
 	}
 
 }

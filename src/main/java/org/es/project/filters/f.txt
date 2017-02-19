@@ -1,3 +1,0 @@
-PLACE FILTERS IN THIS PACKAGE
-===================================
-REMOVE THIS FILE

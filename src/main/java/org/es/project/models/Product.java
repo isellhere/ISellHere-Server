@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.es.project.exceptions.NoCommentsException;
+
 @Entity
 public class Product {
 	@Id
@@ -76,16 +78,28 @@ public class Product {
 		return grade;		
 	}
 	
-	public String[] showRecentComments(){
+	public String[] showRecentComments() throws NoCommentsException{
 		String[] recentComments = new String[3];
 		int count = 0;
-		for(int i = evaluations.size() - 1; i > 0; i--){
-			if(!evaluations.get(i).getComment().equals("")){
-				recentComments[count] = evaluations.get(i).getComment();
-				count++;
-			}
+		
+		if(evaluations.size() >= 3){
+			for(int i = evaluations.size() - 1; i >= (evaluations.size() - 3); i--){
+				if(!evaluations.get(i).getComment().equals("")){
+					recentComments[count] = evaluations.get(i).getComment();
+					count++;}
+				}
+			return recentComments;	
+			
+		}else{
+			if(!evaluations.isEmpty()){
+				for (Evaluation e : evaluations){
+					recentComments[count] = e.getComment();
+					count++;}
+				return recentComments;
+				
+			}else{
+				throw new NoCommentsException();}
 		}
-		return recentComments;
 	}
 	
 	

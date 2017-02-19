@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import org.es.project.exceptions.NoCommentsException;
+
 @Entity
 public class PointOfSale {
 	@Id
@@ -38,9 +40,9 @@ public class PointOfSale {
 		this.name = name;
 		this.comment = comment;
 		this.image = image;
-		location = new Location(longitude, latitude);
-		products = new ArrayList<>();
-		evaluations = new ArrayList<>();
+		this.location = new Location(longitude, latitude);
+		this.products = new ArrayList<>();
+		this.evaluations = new ArrayList<>();
 	}
 	
 	
@@ -75,6 +77,13 @@ public class PointOfSale {
 
 	//TODO
 	public void deleteProduct(String name){
+		if (!products.isEmpty()){
+			for(int i = 0; i < products.size(); i++){
+				if(products.get(i).getName().equals(name)){
+					products.remove(i);
+				}
+			}
+		}
 		
 	}
 	
@@ -103,17 +112,28 @@ public class PointOfSale {
 		return grade;		
 	}
 	
-	public String[] showRecentComments(){
+	public String[] showRecentComments() throws NoCommentsException{
 		String[] recentComments = new String[3];
 		int count = 0;
+		
 		if(evaluations.size() >= 3){
-			for(int i = evaluations.size() - 1; i > ( evaluations.size() - 4); i--){
+			for(int i = evaluations.size() - 1; i >= (evaluations.size() - 3); i--){
 				if(!evaluations.get(i).getComment().equals("")){
 					recentComments[count] = evaluations.get(i).getComment();
-					count++;
-			}}
+					count++;}
+				}
+			return recentComments;	
+			
+		}else{
+			if(!evaluations.isEmpty()){
+				for (Evaluation e : evaluations){
+					recentComments[count] = e.getComment();
+					count++;}
+				return recentComments;
+				
+			}else{
+				throw new NoCommentsException();}
 		}
-		return recentComments;
 	}
 
 	//GETTERS AND SETTERS
@@ -149,6 +169,10 @@ public class PointOfSale {
 
 	public List<Product> getProducts() {
 		return products;
+	}
+	
+	public List<Evaluation> getEvaluations(){
+		return evaluations;
 	}
 	
 	public Long getId(){
@@ -189,7 +213,7 @@ public class PointOfSale {
 			return false;
 		}
 		PointOfSale other = (PointOfSale) obj;
-		if(creator.equals(other.getCreator()) && name.equals(other.getName()) && location.equals(other.getLocation())){
+		if(name.equals(other.getName()) && creator.equals(other.getCreator()) && location.equals(other.getLocation())){
 			return true;
 		}else{
 			return false;	

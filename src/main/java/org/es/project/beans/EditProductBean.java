@@ -1,32 +1,23 @@
 package org.es.project.beans;
 
-import java.util.List;
-
-import org.es.project.models.Evaluation;
-import org.es.project.models.PointOfSale;
 import org.es.project.models.Product;
 import org.es.project.models.User;
 
 public class EditProductBean {
-	private User creator;
-	private PointOfSale pointOfSale;
+	private User requester;
 	private String productName;
 	private String productComment;
 	private double productPrice;
 	private String productImage;
-	private List<Evaluation> productEvaluations;
 	private Product selectedProduct;
 	
 	
-	public EditProductBean(User creator, PointOfSale pointOfSale, String productName, String productComment,
-			double productPrice, String productImage, List<Evaluation> productEvaluations, Product selectedProduct) {
-		this.creator = creator;
-		this.pointOfSale = pointOfSale;
+	public EditProductBean(User requester, String productName, String productComment, double productPrice, String productImage, Product selectedProduct) {
+		this.requester = requester;
 		this.productName = productName;
 		this.productComment = productComment;
 		this.productPrice = productPrice;
 		this.productImage = productImage;
-		this.productEvaluations = productEvaluations;
 		this.selectedProduct = selectedProduct;
 	}
 	
@@ -34,20 +25,12 @@ public class EditProductBean {
 		
 	}
 
-	public User getCreator() {
-		return creator;
+	public User getRequester() {
+		return requester;
 	}
 
-	public void setCreator(User creator) {
-		this.creator = creator;
-	}
-
-	public PointOfSale getPointOfSale() {
-		return pointOfSale;
-	}
-
-	public void setPointOfSale(PointOfSale pointOfSale) {
-		this.pointOfSale = pointOfSale;
+	public void setRequester(User requester) {
+		this.requester = requester;
 	}
 
 	public String getProductName() {
@@ -80,14 +63,6 @@ public class EditProductBean {
 
 	public void setProductImage(String productImage) {
 		this.productImage = productImage;
-	}
-
-	public List<Evaluation> getProductEvaluations() {
-		return productEvaluations;
-	}
-
-	public void setProductEvaluations(List<Evaluation> productEvaluations) {
-		this.productEvaluations = productEvaluations;
 	}
 
 	public Product getSelectedProduct() {

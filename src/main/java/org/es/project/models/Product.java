@@ -1,32 +1,47 @@
 package org.es.project.models;
 
-import java.awt.Image;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.es.project.exceptions.NegativePriceException;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
+@Entity
 public class Product {
+	@Id
+	@GeneratedValue
+	private Long id;
+	@ManyToOne(cascade = CascadeType.ALL)
 	private User creator;
+	@ManyToOne(cascade = CascadeType.ALL)
 	private PointOfSale pointOfSale;
 	private String name;
 	private String comment;
 	private double price;
-	private Image image;
+	private String image;
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<Evaluation> evaluations;
 	
 	
-	public Product(User creator, PointOfSale pointOfSale, String name, double price, String comment, Image image){
+	public Product(User creator, PointOfSale pointOfSale, String name, double price, String comment, String image){
 		this.creator = creator;
 		this.pointOfSale = pointOfSale;
 		this.name = name;
 		this.price = price;
 		this.comment = comment;
 		this.image = image; // A gente tem que achar uma imagem default depois pra nao ficar NULL
+		evaluations = new ArrayList<>();
 	}
 	
 	public Product(User creator, PointOfSale pointOfSale, String name, double price, String comment){
 		this(creator, pointOfSale, name, price, comment, null);
 	}
 	
-	public Product(User creator, PointOfSale pointOfSale, String name, double price, Image image){
+	public Product(User creator, PointOfSale pointOfSale, String name, String image, double price){
 		this(creator, pointOfSale, name, price, "", image);
 	}
 	
@@ -35,6 +50,136 @@ public class Product {
 	}
 	
 	//lembrar que algumas operações so o criador do produto e do ponto de venda pode fazer
+	
+	public void addEvaluation(int grade, String comment){
+		Evaluation evaluation = new Evaluation(grade, comment);
+		evaluations.add(evaluation);
+	}
+	
+	public void addEvaluation(int grade){
+		Evaluation evaluation = new Evaluation(grade);
+		evaluations.add(evaluation);
+	}
+	
+	public double showProductGrade(){
+		double grade = 0.0;
+		
+		if(!evaluations.isEmpty()){
+			
+			for(Evaluation ev : evaluations){
+				grade += ev.getGrade();
+			}
+			grade = grade / evaluations.size();
+		}
+		
+		return grade;		
+	}
+	
+	public String[] showRecentComments(){
+		String[] recentComments = new String[3];
+		int count = 0;
+		for(int i = evaluations.size() - 1; i > 0; i--){
+			if(!evaluations.get(i).getComment().equals("")){
+				recentComments[count] = evaluations.get(i).getComment();
+				count++;
+			}
+		}
+		return recentComments;
+	}
+	
+	
+	// GETTERS AND SETTERS
+	
+	public String getName() {
+		return name;
+	}
+
+	public String getComment() {
+		return comment;
+	}
+
+	public double getPrice() {
+		return price;
+	}
+
+	public String getImage() {
+		return image;
+	}
+	
+	public PointOfSale getPointOfSale(){
+		return pointOfSale;
+	}
+	
+	public User getCreator(){
+		return creator;
+	}
+	
+	// Deve haver uma checagem se o usuario tem permissao de realizar tal ação. Isso deve ser feito em services.
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((creator == null) ? 0 : creator.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((pointOfSale == null) ? 0 : pointOfSale.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		Product other = (Product) obj;
+		if (creator == null) {
+			if (other.creator != null)
+				return false;
+			
+		} else if (!creator.equals(other.creator))
+			return false;
+		
+		if (id == null) {
+			if (other.id != null)
+				return false;
+			
+		} else if (!id.equals(other.id))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+			
+		} else if (!name.equals(other.name))
+			return false;
+		
+		if (pointOfSale == null) {
+			if (other.pointOfSale != null)
+				return false;
+			
+		} else if (!pointOfSale.equals(other.pointOfSale))
+			return false;
+		return true;
+	}
+	
+	
+	
 
 	
 	

@@ -134,6 +134,49 @@ public class Product {
 	public Long getId() {
 		return id;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((creator == null) ? 0 : creator.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((pointOfSale == null) ? 0 : pointOfSale.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		Product other = (Product) obj;
+		if (creator == null) {
+			if (other.creator != null)
+				return false;
+			
+		} else if (!creator.equals(other.creator))
+			return false;
+		
+		if (id == null) {
+			if (other.id != null)
+				return false;
+			
+		} else if (!id.equals(other.id))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+			
+		} else if (!name.equals(other.name))
+			return false;
+		
+		if (pointOfSale == null) {
+			if (other.pointOfSale != null)
+				return false;
+			
+		} else if (!pointOfSale.equals(other.pointOfSale))
+			return false;
+		return true;
+	}
 	
 	
 	

@@ -110,11 +110,12 @@ public class PointOfSale {
 	public String[] showRecentComments(){
 		String[] recentComments = new String[3];
 		int count = 0;
-		for(int i = evaluations.size() - 1; i > 0; i--){
-			if(!evaluations.get(i).getComment().equals("")){
-				recentComments[count] = evaluations.get(i).getComment();
-				count++;
-			}
+		if(evaluations.size() >= 3){
+			for(int i = evaluations.size() - 1; i > ( evaluations.size() - 4); i--){
+				if(!evaluations.get(i).getComment().equals("")){
+					recentComments[count] = evaluations.get(i).getComment();
+					count++;
+			}}
 		}
 		return recentComments;
 	}
@@ -172,7 +173,51 @@ public class PointOfSale {
 	public void setImage(String image) {
 		this.image = image;
 	}
-	
+
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((creator == null) ? 0 : creator.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((location == null) ? 0 : location.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		return result;
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		PointOfSale other = (PointOfSale) obj;
+		if (creator == null) {
+			if (other.creator != null)
+				return false;
+			
+		} else if (!creator.equals(other.creator))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+			
+		} else if (!id.equals(other.id))
+			return false;
+		
+		if (location == null) {
+			if (other.location != null)
+				return false;
+			
+		} else if (!location.equals(other.location))
+			return false;
+		
+		if (name == null) {
+			if (other.name != null)
+				return false;
+			
+		} else if (!name.equals(other.name))
+			return false;
+		return true;
+	}
 	
 	
 	

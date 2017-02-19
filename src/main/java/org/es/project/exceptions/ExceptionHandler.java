@@ -1,5 +1,7 @@
 package org.es.project.exceptions;
 
+import org.es.project.beans.DeletePointOfSaleBean;
+import org.es.project.beans.EditPointOfSaleBean;
 import org.es.project.beans.RegistrationBean;
 import org.es.project.models.User;
 
@@ -39,5 +41,19 @@ public class ExceptionHandler {
 			throw new InvalidDataException("Invalid username or password.");
 		}
 	}
+	
+	public static void checkEditPointOfSaleBody(EditPointOfSaleBean requestBody){
+		if(requestBody.getRequester() == null || 
+				requestBody.getSelectedPoint() == null ||
+				requestBody.getPointComment() == null ||
+				requestBody.getPointName() == null){
+			throw new InvalidDataException("One of the fields is null");
+		}
+		if(requestBody.getRequester().equals(requestBody.getSelectedPoint().getCreator())){
+			throw new NotCreatorException();
+		}
+			
+	}
+	
 
 }

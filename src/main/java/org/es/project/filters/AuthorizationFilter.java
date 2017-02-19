@@ -28,7 +28,7 @@ public class AuthorizationFilter extends GenericFilterBean {
 		String token = header.substring(AUTHORIZATION_TYPE.length());
 		
 		try {
-			Jwts.parser().setSigningKey("lordoftherings")
+			Jwts.parser().setSigningKey("bichopiruleta")
 						 .parseClaimsJws(token).getBody();
 		} catch(SignatureException e) {
 			throw new ServletException("Invalid token.");

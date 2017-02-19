@@ -30,7 +30,7 @@ public class PointOfSale {
 	@OneToOne(cascade = CascadeType.ALL)
 	private Location location;
 	@OneToMany(cascade = CascadeType.ALL)
-	private List<Product> products;
+	private static List<Product> products;
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Evaluation> evaluations;
 	
@@ -41,7 +41,7 @@ public class PointOfSale {
 		this.comment = comment;
 		this.image = image;
 		this.location = new Location(longitude, latitude);
-		this.products = new ArrayList<>();
+		this.setProducts(new ArrayList<>());
 		this.evaluations = new ArrayList<>();
 	}
 	
@@ -60,27 +60,27 @@ public class PointOfSale {
 
 	public void addProduct(User creator, String name, double price, String comment, String image){
 		Product product = new Product(creator, this, name, price, comment, image);
-		products.add(product);
+		getProducts().add(product);
 	}
 	public void addProduct(User creator, String name, String comment,  double price){
 		Product product = new Product(creator, this, name, price, comment);
-		products.add(product);
+		getProducts().add(product);
 	}
 	public void addProduct(User creator, String name, double price, String image){
 		Product product = new Product(creator, this, name, price, image);
-		products.add(product);
+		getProducts().add(product);
 	}
 	public void addProduct(User creator, String name, double price){
 		Product product = new Product(creator, this, name, price);
-		products.add(product);
+		getProducts().add(product);
 	}
 
-	//TODO
-	public void deleteProduct(String name){
-		if (!products.isEmpty()){
-			for(int i = 0; i < products.size(); i++){
-				if(products.get(i).getName().equals(name)){
-					products.remove(i);
+	
+	public static void deleteProduct(String name){
+		if (!getProducts().isEmpty()){
+			for(int i = 0; i < getProducts().size(); i++){
+				if(getProducts().get(i).getName().equals(name)){
+					getProducts().remove(i);
 				}
 			}
 		}
@@ -167,7 +167,7 @@ public class PointOfSale {
 	}
 
 
-	public List<Product> getProducts() {
+	public static List<Product> getProducts() {
 		return products;
 	}
 	
@@ -227,6 +227,11 @@ public class PointOfSale {
 	
 	public void setLocation(double longitude, double latitude){
 		this.location = new Location(longitude, latitude);
+	}
+
+
+	public void setProducts(List<Product> products) {
+		PointOfSale.products = products;
 	}
 	
 	

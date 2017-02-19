@@ -2,6 +2,7 @@ package org.es.project.exceptions;
 
 import org.es.project.beans.DeletePointOfSaleBean;
 import org.es.project.beans.EditPointOfSaleBean;
+import org.es.project.beans.EditProductBean;
 import org.es.project.beans.RegistrationBean;
 import org.es.project.models.User;
 
@@ -49,11 +50,26 @@ public class ExceptionHandler {
 				requestBody.getPointName() == null){
 			throw new InvalidDataException("One of the fields is null");
 		}
-		if(requestBody.getRequester().equals(requestBody.getSelectedPoint().getCreator())){
+		if(!requestBody.getRequester().equals(requestBody.getSelectedPoint().getCreator())){
 			throw new NotCreatorException();
 		}
 			
 	}
 	
+	public static void checkEditProductBody(EditProductBean body){
+		if(body.getRequester() == null ||
+				body.getProductName() == null 
+				|| body.getSelectedProduct() == null 
+				|| body.getProductComment() == null 
+				|| body.getProductImage() == null
+				|| body.getProductPrice() <= 0){
+			
+			throw new InvalidDataException("One of the fields is null");
+		}
+		
+		if(!body.getRequester().equals(body.getSelectedProduct().getCreator())){
+			throw new NotCreatorException();
+		}
+	}
 
 }

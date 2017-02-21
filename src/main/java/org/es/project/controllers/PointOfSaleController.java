@@ -57,10 +57,11 @@ public class PointOfSaleController {
 		
 	@RequestMapping(value = "/get",
 					method = RequestMethod.POST,
+					consumes = MediaType.APPLICATION_JSON_VALUE,
 			        produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<PointOfSale> getPointOfSaleByLocation(@RequestBody GetPointOfSaleBean requestBody){
-	
-		PointOfSale point = pointOfSaleService.findByNameNLocation(requestBody.getLocation(), requestBody.getPointName());
+		Location location = new Location(requestBody.getLongitude(), requestBody.getLatitude());
+		PointOfSale point = pointOfSaleService.findByNameNLocation(location, requestBody.getPointName());
 		ResponseEntity<PointOfSale> result;
 		
 		if(Validator.isEmpty(point)){
@@ -78,8 +79,17 @@ public class PointOfSaleController {
 					produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<PointOfSale> editPointOfSale(@RequestBody EditPointOfSaleBean requestBody) throws ServletException{
 		try{
-			ExceptionHandler.checkEditPointOfSaleBody(requestBody);
-			PointOfSale point = pointOfSaleService.findByName(requestBody.getSelectedPoint().getName());
+			
+			PointOfSale point = pointOfSaleService.findByName(requestBody.getSelectedPoint());
+			if(Validator.isEmpty(point)){
+				throw new RuntimeException("Invalid Point");
+			}
+			User requester = userService.findByUsername(requestBody.getRequester());
+			if(Validator.isEmpty(requester)){
+				throw new RuntimeException("Invalid Username");
+			}
+			
+			ExceptionHandler.checkEditPointOfSaleBody(requestBody, requester, point);
 			if(!point.getName().equals(requestBody.getPointName())){
 				point.setName(requestBody.getPointName());
 			}
@@ -114,7 +124,14 @@ public class PointOfSaleController {
 	public ResponseEntity<PointOfSale> deletePointOfSale(@RequestBody DeletePointOfSaleBean requestBody) throws ServletException{
 		try{
 			PointOfSale pointToBeDeleted = pointOfSaleService.findByName(requestBody.getPointName());
-			if(!requestBody.getRequester().equals(pointToBeDeleted.getCreator())) throw new NotCreatorException();
+			if(Validator.isEmpty(pointToBeDeleted)){
+				throw new RuntimeException("Invalid Point");
+			}
+			User requester = userService.findByUsername(requestBody.getRequester());
+			if(Validator.isEmpty(requester)){
+				throw new RuntimeException("Invalid Username");
+			}
+			if(!requester.equals(pointToBeDeleted.getCreator())) throw new NotCreatorException();
 			
 			PointOfSale deletedPoint = pointOfSaleService.delete(pointToBeDeleted.getId());
 			if(Validator.isEmpty(deletedPoint)){

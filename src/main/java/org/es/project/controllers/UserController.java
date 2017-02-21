@@ -84,7 +84,10 @@ public class UserController {
 	public ResponseEntity<User> editUser(@RequestBody EditUserBean reqBody) throws ServletException{
 		try{
 			ExceptionHandler.checkPassword(reqBody.getNewPassword());
-			User dbUser = userService.findByUsername(reqBody.getUser().getUsername());
+			User dbUser = userService.findByUsername(reqBody.getUser());
+			if(Validator.isEmpty(dbUser)){
+				throw new RuntimeException("Invalid Username");
+			}
 			dbUser.setPassword(reqBody.getNewPassword());
 			
 			User updatedUser = userService.update(dbUser);

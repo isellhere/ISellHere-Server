@@ -10,6 +10,7 @@ import org.es.project.exceptions.ExceptionHandler;
 import org.es.project.exceptions.InvalidDataException;
 import org.es.project.exceptions.NotCreatorException;
 import org.es.project.exceptions.Validator;
+import org.es.project.models.Location;
 import org.es.project.models.PointOfSale;
 import org.es.project.models.Product;
 import org.es.project.models.User;
@@ -59,11 +60,13 @@ public class ProductController {
 	}
 	
 	@RequestMapping(value = "/get",
+			method = RequestMethod.POST,
 			consumes = MediaType.APPLICATION_JSON_VALUE,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Product> getProductByName(@RequestBody GetProductBean requestBody){
 		
-		Product product = productService.findByNameNLocation(requestBody.getLocation(), requestBody.getProductName());
+		Location location = new Location(requestBody.getLongitude(), requestBody.getLatitude());
+		Product product = productService.findByNameNLocation(location, requestBody.getProductName());
 		
 		if(Validator.isEmpty(product)){
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -81,8 +84,18 @@ public class ProductController {
 	public ResponseEntity<Product> editProduct(@RequestBody EditProductBean requestBody) throws ServletException{
 		try{
 			
-			ExceptionHandler.checkEditProductBody(requestBody);
-			Product product = productService.findByName(requestBody.getSelectedProduct().getName());
+			Product product = productService.findByName(requestBody.getSelectedProduct());
+			if(Validator.isEmpty(product)){
+				throw new RuntimeException("Invalid point");
+			}
+			
+			User requester = userService.findByUsername(requestBody.getRequester());
+			if(Validator.isEmpty(requester)){
+				throw new RuntimeException("Invalid Username");
+			}
+			
+			
+			ExceptionHandler.checkEditProductBody(requestBody, requester, product);
 			if(!product.getName().equals(requestBody.getProductName())){
 				product.setName(requestBody.getProductName());
 			}
@@ -123,8 +136,18 @@ public class ProductController {
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Product> deleteProduct (@RequestBody DeleteProductBean requestBody) throws ServletException{
 		try{
+			
 			Product productToBeDeleted = productService.findByName(requestBody.getProductName());
-			if(!(requestBody.getRequester().equals(productToBeDeleted.getCreator()) || requestBody.getRequester().equals(productToBeDeleted.getPointOfSale().getCreator()))){
+			if(Validator.isEmpty(productToBeDeleted)){
+				throw new RuntimeException("Invalid point");
+			}
+			
+			User requester = userService.findByUsername(requestBody.getRequester());
+			if(Validator.isEmpty(requester)){
+				throw new RuntimeException("Invalid Username");
+			}
+			
+			if(!(requester.equals(productToBeDeleted.getCreator()) || requester.equals(productToBeDeleted.getPointOfSale().getCreator()))){
 				throw new NotCreatorException();
 			}
 			

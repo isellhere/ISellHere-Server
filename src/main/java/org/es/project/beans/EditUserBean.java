@@ -1,22 +1,21 @@
 package org.es.project.beans;
 
-import org.es.project.models.User;
 
 public class EditUserBean {
 	
-	private User user;
+	private String user;
 	private String newPassword;
 	
-	public EditUserBean(User user, String newPassword){
+	public EditUserBean(String user, String newPassword){
 		this.user = user;
 		this.newPassword = newPassword;
 	}
 
-	public User getUser() {
+	public String getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(String user) {
 		this.user = user;
 	}
 

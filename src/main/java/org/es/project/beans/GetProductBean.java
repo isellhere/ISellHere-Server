@@ -4,14 +4,14 @@ import org.es.project.models.Location;
 import org.es.project.models.User;
 
 public class GetProductBean {
-	private User user;
 	private String productName;
-	private Location location;
+	private double longitude;
+	private double latitude;
 	
-	public GetProductBean(User user, String productName, Location location){
-		this.user = user;
+	public GetProductBean(String productName, double longitude, double latitude){
 		this.productName = productName;
-		this.location = location;
+		this.longitude = longitude;
+		this.latitude = latitude;
 	}
 	
 	public GetProductBean(){
@@ -26,21 +26,24 @@ public class GetProductBean {
 		this.productName = productName;
 	}
 
-	public Location getLocation() {
-		return location;
+	public double getLongitude() {
+		return longitude;
 	}
 
-	public void setLocation(Location location) {
-		this.location = location;
+	public void setLongitude(double longitude) {
+		this.longitude = longitude;
 	}
 
-	public User getUser() {
-		return user;
+	public double getLatitude() {
+		return latitude;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setLatitude(double latitude) {
+		this.latitude = latitude;
 	}
+	
+	
+
 	
 	
 }

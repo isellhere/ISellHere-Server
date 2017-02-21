@@ -6,15 +6,15 @@ import org.es.project.models.Product;
 import org.es.project.models.User;
 
 public class EditProductBean {
-	private User requester;
+	private String requester;
 	private String productName;
 	private String productComment;
 	private double productPrice;
 	private File productImage;
-	private Product selectedProduct;
+	private String selectedProduct;
 	
 	
-	public EditProductBean(User requester, String productName, String productComment, double productPrice, File productImage, Product selectedProduct) {
+	public EditProductBean(String requester, String productName, String productComment, double productPrice, File productImage, String selectedProduct) {
 		this.requester = requester;
 		this.productName = productName;
 		this.productComment = productComment;
@@ -27,11 +27,11 @@ public class EditProductBean {
 		
 	}
 
-	public User getRequester() {
+	public String getRequester() {
 		return requester;
 	}
 
-	public void setRequester(User requester) {
+	public void setRequester(String requester) {
 		this.requester = requester;
 	}
 
@@ -67,11 +67,11 @@ public class EditProductBean {
 		this.productImage = productImage;
 	}
 
-	public Product getSelectedProduct() {
+	public String getSelectedProduct() {
 		return selectedProduct;
 	}
 
-	public void setSelectedProduct(Product selectedProduct) {
+	public void setSelectedProduct(String selectedProduct) {
 		this.selectedProduct = selectedProduct;
 	}
 

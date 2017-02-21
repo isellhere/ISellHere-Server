@@ -4,6 +4,8 @@ import org.es.project.beans.EditPointOfSaleBean;
 import org.es.project.beans.EditProductBean;
 import org.es.project.beans.LoginBean;
 import org.es.project.beans.RegistrationBean;
+import org.es.project.models.PointOfSale;
+import org.es.project.models.Product;
 import org.es.project.models.User;
 
 public class ExceptionHandler {
@@ -43,20 +45,20 @@ public class ExceptionHandler {
 		}
 	}
 	
-	public static void checkEditPointOfSaleBody(EditPointOfSaleBean requestBody){
+	public static void checkEditPointOfSaleBody(EditPointOfSaleBean requestBody, User requester, PointOfSale point){
 		if(requestBody.getRequester() == null || 
 				requestBody.getSelectedPoint() == null ||
 				requestBody.getPointComment() == null ||
 				requestBody.getPointName() == null){
 			throw new InvalidDataException("One of the fields is null");
 		}
-		if(!requestBody.getRequester().equals(requestBody.getSelectedPoint().getCreator())){
+		if(!requester.equals(point.getCreator())){
 			throw new NotCreatorException();
 		}
 			
 	}
 	
-	public static void checkEditProductBody(EditProductBean body){
+	public static void checkEditProductBody(EditProductBean body, User requester, Product product){
 		if(body.getRequester() == null ||
 				body.getProductName() == null 
 				|| body.getSelectedProduct() == null 
@@ -67,7 +69,7 @@ public class ExceptionHandler {
 			throw new InvalidDataException("One of the fields is null");
 		}
 		
-		if(!(body.getRequester().equals(body.getSelectedProduct().getCreator()) || body.getRequester().equals(body.getSelectedProduct().getPointOfSale().getCreator()))){
+		if(!(requester.equals(product.getCreator()) || requester.equals(product.getPointOfSale().getCreator()))){
 			throw new NotCreatorException();
 		}
 		

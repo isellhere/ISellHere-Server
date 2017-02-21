@@ -4,13 +4,13 @@ import org.es.project.models.Product;
 import org.es.project.models.User;
 
 public class AddNDeleteProductEvaluationBean {
-	private User user;
-	private Product product;
+	private String user;
+	private String product;
 	private int grade;
 	private String comment;
 	
 	
-	public AddNDeleteProductEvaluationBean(User user, Product product, int grade, String comment) {
+	public AddNDeleteProductEvaluationBean(String user, String product, int grade, String comment) {
 		this.user = user;
 		this.product = product;
 		this.grade = grade;
@@ -21,19 +21,19 @@ public class AddNDeleteProductEvaluationBean {
 		
 	}
 
-	public User getUser() {
+	public String getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(String user) {
 		this.user = user;
 	}
 
-	public Product getProduct() {
+	public String getProduct() {
 		return product;
 	}
 
-	public void setProduct(Product product) {
+	public void setProduct(String product) {
 		this.product = product;
 	}
 

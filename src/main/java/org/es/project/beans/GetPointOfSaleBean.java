@@ -4,14 +4,14 @@ import org.es.project.models.Location;
 import org.es.project.models.User;
 
 public class GetPointOfSaleBean {
-	private User user;
 	private String pointName;
-	private Location location;
+	private double latitude;
+	private double longitude;
 	
-	public GetPointOfSaleBean(User user, String pointName, Location location){
-		this.user = user;
+	public GetPointOfSaleBean(String pointName, double latitude, double longitude){
 		this.pointName = pointName;
-		this.location = location;
+		this.latitude = latitude;
+		this.longitude = longitude;
 	}
 	
 	public GetPointOfSaleBean(){
@@ -26,21 +26,23 @@ public class GetPointOfSaleBean {
 		this.pointName = pointName;
 	}
 
-	public Location getLocation() {
-		return location;
+	public double getLatitude() {
+		return latitude;
 	}
 
-	public void setLocation(Location location) {
-		this.location = location;
+	public void setLatitude(double latitude) {
+		this.latitude = latitude;
 	}
 
-	public User getUser() {
-		return user;
+	public double getLongitude() {
+		return longitude;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setLongitude(double longitude) {
+		this.longitude = longitude;
 	}
+
+
 	
 	
 }

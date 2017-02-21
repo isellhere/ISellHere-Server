@@ -1,22 +1,22 @@
 package org.es.project.beans;
 
-import org.es.project.models.User;
+
 
 public class DeletePointOfSaleBean {
 	
-	private User requester;
+	private String requester;
 	private String pointName;
 	
-	public DeletePointOfSaleBean(User requester, String pointName){
+	public DeletePointOfSaleBean(String requester, String pointName){
 		this.requester = requester;
 		this.pointName = pointName;
 	}
 
-	public User getRequester() {
+	public String getRequester() {
 		return requester;
 	}
 
-	public void setRequester(User requester) {
+	public void setRequester(String requester) {
 		this.requester = requester;
 	}
 

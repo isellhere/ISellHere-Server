@@ -6,15 +6,15 @@ import org.es.project.models.PointOfSale;
 import org.es.project.models.User;
 
 public class EditPointOfSaleBean {
-	private User requester;
-	private PointOfSale selectedPoint;
+	private String requester;
+	private String selectedPoint;
 	private String pointName;
 	private String pointComment;
 	private File pointImage;
 
 	
 	
-	public EditPointOfSaleBean(User requester, PointOfSale selectedPoint, String pointName, String pointComment, File pointImage) {
+	public EditPointOfSaleBean(String requester, String selectedPoint, String pointName, String pointComment, File pointImage) {
 		this.requester = requester;
 		this.selectedPoint = selectedPoint;
 		this.pointName = pointName;
@@ -26,19 +26,19 @@ public class EditPointOfSaleBean {
 		
 	}
 
-	public User getRequester() {
+	public String getRequester() {
 		return requester;
 	}
 
-	public void setRequester(User requester) {
+	public void setRequester(String requester) {
 		this.requester = requester;
 	}
 
-	public PointOfSale getSelectedPoint() {
+	public String getSelectedPoint() {
 		return selectedPoint;
 	}
 
-	public void setSelectedPoint(PointOfSale selectedPoint) {
+	public void setSelectedPoint(String selectedPoint) {
 		this.selectedPoint = selectedPoint;
 	}
 

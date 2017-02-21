@@ -27,7 +27,7 @@ public class AuthenticationController {
 	private UserService userService;
 	private TokenBuilder tokenBuilder;
 	
-	@RequestMapping(value = "/new",
+	@RequestMapping(value = "/login",
 			method = RequestMethod.POST, 
 			produces = MediaType.APPLICATION_JSON_VALUE,
 			consumes = MediaType.APPLICATION_JSON_VALUE)

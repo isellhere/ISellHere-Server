@@ -8,43 +8,42 @@ import org.es.project.models.PointOfSale;
 import org.es.project.models.User;
 
 public class AddNDeleteProductBean {
-	private User creator;
-	private PointOfSale pointOfSale;
+	private String creator;
+	private String pointOfSale;
 	private String productName;
 	private String productComment;
 	private double productPrice;
 	private File productImage;
-	private List<Evaluation> productEvaluations;
 	
 	
-	public AddNDeleteProductBean(User creator, PointOfSale pointOfSale, String productName, String productComment,
-			double productPrice, File productImage, List<Evaluation> productEvaluations) {
+	
+	public AddNDeleteProductBean(String creator, String pointOfSale, String productName, String productComment,
+			double productPrice, File productImage) {
 		this.creator = creator;
 		this.pointOfSale = pointOfSale;
 		this.productName = productName;
 		this.productComment = productComment;
 		this.productPrice = productPrice;
 		this.productImage = productImage;
-		this.productEvaluations = productEvaluations;
 	}
 	
 	public AddNDeleteProductBean(){
 		
 	}
 
-	public User getCreator() {
+	public String getCreator() {
 		return creator;
 	}
 
-	public void setCreator(User creator) {
+	public void setCreator(String creator) {
 		this.creator = creator;
 	}
 
-	public PointOfSale getPointOfSale() {
+	public String getPointOfSale() {
 		return pointOfSale;
 	}
 
-	public void setPointOfSale(PointOfSale pointOfSale) {
+	public void setPointOfSale(String pointOfSale) {
 		this.pointOfSale = pointOfSale;
 	}
 
@@ -78,14 +77,6 @@ public class AddNDeleteProductBean {
 
 	public void setProductImage(File productImage) {
 		this.productImage = productImage;
-	}
-
-	public List<Evaluation> getProductEvaluations() {
-		return productEvaluations;
-	}
-
-	public void setProductEvaluations(List<Evaluation> productEvaluations) {
-		this.productEvaluations = productEvaluations;
 	}
 	
 }

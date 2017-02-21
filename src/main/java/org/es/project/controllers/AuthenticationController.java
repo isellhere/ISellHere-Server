@@ -3,6 +3,7 @@ package org.es.project.controllers;
 import javax.servlet.ServletException;
 
 import org.es.project.beans.AuthenticationResponse;
+import org.es.project.beans.LoginBean;
 import org.es.project.exceptions.ExceptionHandler;
 import org.es.project.models.User;
 import org.es.project.services.implementations.UserServiceImpl;
@@ -30,7 +31,7 @@ public class AuthenticationController {
 			method = RequestMethod.POST, 
 			produces = MediaType.APPLICATION_JSON_VALUE,
 			consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<AuthenticationResponse> login(@RequestBody User requestBody) throws ServletException {
+	public ResponseEntity<AuthenticationResponse> login(@RequestBody LoginBean requestBody) throws ServletException {
 		try {
 			ExceptionHandler.checkLoginBody(requestBody);
 			

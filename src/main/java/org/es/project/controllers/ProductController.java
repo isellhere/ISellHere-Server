@@ -12,8 +12,13 @@ import org.es.project.exceptions.NotCreatorException;
 import org.es.project.exceptions.Validator;
 import org.es.project.models.PointOfSale;
 import org.es.project.models.Product;
+import org.es.project.models.User;
+import org.es.project.services.implementations.PointOfSaleServiceImpl;
 import org.es.project.services.implementations.ProductServiceImpl;
+import org.es.project.services.implementations.UserServiceImpl;
+import org.es.project.services.interfaces.PointOfSaleService;
 import org.es.project.services.interfaces.ProductService;
+import org.es.project.services.interfaces.UserService;
 import org.es.project.util.ServerConstants;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,14 +35,23 @@ import org.springframework.http.ResponseEntity;
 public class ProductController {
 
 	private ProductService productService;
+	private PointOfSaleService pointOfSaleService;
+	private UserService userService;
 	
 	@RequestMapping(value = "/new", 
 			method = RequestMethod.POST, 
 			consumes = MediaType.APPLICATION_JSON_VALUE, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Product> createProduct(@RequestBody AddNDeleteProductBean requestBody){
-		Product newProduct = new Product(requestBody.getCreator(), requestBody.getPointOfSale(), requestBody.getProductName(),
-				requestBody.getProductPrice(), requestBody.getProductComment(), requestBody.getProductImage());
+		User creator = userService.findByUsername(requestBody.getCreator());
+		PointOfSale point = pointOfSaleService.findByName(requestBody.getPointOfSale());
+		if(Validator.isEmpty(point)){
+			throw new RuntimeException("Invalid point of sale");
+		}
+		if(Validator.isEmpty(creator)){
+			throw new RuntimeException("Invalid Username");
+		}
+		Product newProduct = point.addProduct(creator, requestBody.getProductName(), requestBody.getProductPrice(), requestBody.getProductComment(), requestBody.getProductImage());
 		
 		productService.save(newProduct);
 		
@@ -101,7 +115,7 @@ public class ProductController {
 			
 		}catch(DataAccessException dae){
 			throw new ServletException("An error has occurred: " + dae.getMessage());
-	}  
+		}  
 	}
 	
 	@RequestMapping(value = "/delete/{id}",
@@ -110,10 +124,11 @@ public class ProductController {
 	public ResponseEntity<Product> deleteProduct (@RequestBody DeleteProductBean requestBody) throws ServletException{
 		try{
 			Product productToBeDeleted = productService.findByName(requestBody.getProductName());
-			if(!requestBody.getRequester().equals(productToBeDeleted.getCreator())){
+			if(!(requestBody.getRequester().equals(productToBeDeleted.getCreator()) || requestBody.getRequester().equals(productToBeDeleted.getPointOfSale().getCreator()))){
 				throw new NotCreatorException();
 			}
-			PointOfSale.deleteProduct(productToBeDeleted.getName());
+			
+			productToBeDeleted.getPointOfSale().deleteProduct(productToBeDeleted.getName());
 			Product deletedProduct = productService.delete(productToBeDeleted.getId());
 			if(Validator.isEmpty(deletedProduct)){
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -131,6 +146,16 @@ public class ProductController {
 	@Autowired
 	public void setProductService(ProductServiceImpl productServiceImpl){
 		this.productService = productServiceImpl;
+	}
+	
+	@Autowired
+	public void setPointOfSaleService(PointOfSaleServiceImpl pointOfSaleServiceImpl) {
+		this.pointOfSaleService = pointOfSaleServiceImpl;
+	}
+	
+	@Autowired
+	public void setUserService(UserServiceImpl userServiceImpl) {
+		this.userService = userServiceImpl;
 	}
 	
 }

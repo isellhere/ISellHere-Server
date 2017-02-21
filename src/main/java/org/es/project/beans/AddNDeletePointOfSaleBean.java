@@ -8,37 +8,32 @@ import org.es.project.models.Product;
 import org.es.project.models.User;
 
 public class AddNDeletePointOfSaleBean {
-	private User creator;
+	private String creator;
 	private String pointName;
 	private double pointLongitude;
 	private double pointLatitude;
 	private String pointComment;
 	private File pointImage;
-	private List<Product> pointProducts;
-	private List<Evaluation> pointEvaluations;
 	
 	
-	public AddNDeletePointOfSaleBean(User creator, String pointName, double pointLongitude, double pointLatitude, String pointComment, File pointImage,
-			List<Product> pointProducts, List<Evaluation> pointEvaluations) {
+	public AddNDeletePointOfSaleBean(String creator, String pointName, double pointLongitude, double pointLatitude, String pointComment, File pointImage) {
 		this.creator = creator;
 		this.pointName = pointName;
 		this.pointLongitude = pointLongitude;
 		this.pointLatitude = pointLatitude;
 		this.pointComment = pointComment;
 		this.pointImage = pointImage;
-		this.pointProducts = pointProducts;
-		this.pointEvaluations = pointEvaluations;
 	}
 
 	public AddNDeletePointOfSaleBean(){
 		
 	}
 
-	public User getCreator() {
+	public String getCreator() {
 		return creator;
 	}
 
-	public void setCreator(User creator) {
+	public void setCreator(String creator) {
 		this.creator = creator;
 	}
 
@@ -80,22 +75,6 @@ public class AddNDeletePointOfSaleBean {
 
 	public void setPointImage(File pointImage) {
 		this.pointImage = pointImage;
-	}
-
-	public List<Product> getPointProducts() {
-		return pointProducts;
-	}
-
-	public void setPointProducts(List<Product> pointProducts) {
-		this.pointProducts = pointProducts;
-	}
-
-	public List<Evaluation> getPointEvaluations() {
-		return pointEvaluations;
-	}
-
-	public void setPointEvaluations(List<Evaluation> pointEvaluations) {
-		this.pointEvaluations = pointEvaluations;
 	}
 	
 }

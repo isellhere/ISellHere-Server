@@ -1,8 +1,8 @@
 package org.es.project.exceptions;
 
-import org.es.project.beans.DeletePointOfSaleBean;
 import org.es.project.beans.EditPointOfSaleBean;
 import org.es.project.beans.EditProductBean;
+import org.es.project.beans.LoginBean;
 import org.es.project.beans.RegistrationBean;
 import org.es.project.models.User;
 
@@ -27,7 +27,7 @@ public class ExceptionHandler {
 		}
 	}
 	
-	public static void checkLoginBody(User requestBody){
+	public static void checkLoginBody(LoginBean requestBody){
 		if (Validator.isEmpty(requestBody.getUsername())) {
 			throw new InvalidRequestBodyException("Request without email or username.");
 		}
@@ -37,7 +37,7 @@ public class ExceptionHandler {
 		}
 	}
 	
-	public static void checkLoginSuccess(User requestBody, User dbUser) {
+	public static void checkLoginSuccess(LoginBean requestBody, User dbUser) {
 		if (Validator.isEmpty(dbUser) || !dbUser.getPassword().equals(requestBody.getPassword())) {
 			throw new InvalidDataException("Invalid username or password.");
 		}
@@ -67,9 +67,10 @@ public class ExceptionHandler {
 			throw new InvalidDataException("One of the fields is null");
 		}
 		
-		if(!body.getRequester().equals(body.getSelectedProduct().getCreator())){
+		if(!(body.getRequester().equals(body.getSelectedProduct().getCreator()) || body.getRequester().equals(body.getSelectedProduct().getPointOfSale().getCreator()))){
 			throw new NotCreatorException();
 		}
+		
 	}
 
 }

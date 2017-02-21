@@ -80,27 +80,20 @@ public class Product {
 	}
 	
 	public String[] showRecentComments() throws NoCommentsException{
-		String[] recentComments = new String[3];
-		int count = 0;
+		String[] recentComments = new String[3];		
 		
-		if(evaluations.size() >= 3){
-			for(int i = evaluations.size() - 1; i >= (evaluations.size() - 3); i--){
-				if(!evaluations.get(i).getComment().equals("")){
-					recentComments[count] = evaluations.get(i).getComment();
-					count++;}
-				}
-			return recentComments;	
-			
-		}else{
-			if(!evaluations.isEmpty()){
-				for (Evaluation e : evaluations){
-					recentComments[count] = e.getComment();
-					count++;}
-				return recentComments;
-				
-			}else{
-				throw new NoCommentsException();}
+		int count = 0;
+		int i = evaluations.size() -1;
+		while(count < 3 && i >= 0){
+			if(!evaluations.get(i).getComment().equals("")){
+				recentComments[count] = evaluations.get(i).getComment();
+				count++;
+			}
+			i--;
 		}
+		
+		
+		return recentComments;
 	}
 	
 	

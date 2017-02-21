@@ -31,7 +31,7 @@ public class PointOfSale {
 	@OneToOne(cascade = CascadeType.ALL)
 	private Location location;
 	@OneToMany(cascade = CascadeType.ALL)
-	private static List<Product> products;
+	private List<Product> products;
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Evaluation> evaluations;
 	
@@ -42,7 +42,7 @@ public class PointOfSale {
 		this.comment = comment;
 		this.image = image;
 		this.location = new Location(longitude, latitude);
-		this.setProducts(new ArrayList<>());
+		this.products = new ArrayList<>();
 		this.evaluations = new ArrayList<>();
 	}
 	
@@ -59,29 +59,35 @@ public class PointOfSale {
 		this(creator, name, longitude, latitude, "", null);
 	}
 
-	public void addProduct(User creator, String name, double price, String comment, File image){
+	public Product addProduct(User creator, String name, double price, String comment, File image){
 		Product product = new Product(creator, this, name, price, comment, image);
 		getProducts().add(product);
+		return product;
 	}
-	public void addProduct(User creator, String name, String comment,  double price){
+	public Product addProduct(User creator, String name, String comment,  double price){
 		Product product = new Product(creator, this, name, price, comment);
 		getProducts().add(product);
+		return product;
 	}
-	public void addProduct(User creator, String name, double price, String image){
+	public Product addProduct(User creator, String name, double price, String image){
 		Product product = new Product(creator, this, name, price, image);
 		getProducts().add(product);
+		return product;
 	}
-	public void addProduct(User creator, String name, double price){
+	public Product addProduct(User creator, String name, double price){
 		Product product = new Product(creator, this, name, price);
 		getProducts().add(product);
+		return product;
 	}
 
 	
-	public static void deleteProduct(String name){
+	public void deleteProduct(String name){
+		
 		if (!getProducts().isEmpty()){
 			for(int i = 0; i < getProducts().size(); i++){
 				if(getProducts().get(i).getName().equals(name)){
 					getProducts().remove(i);
+					break;
 				}
 			}
 		}
@@ -114,27 +120,20 @@ public class PointOfSale {
 	}
 	
 	public String[] showRecentComments() throws NoCommentsException{
-		String[] recentComments = new String[3];
-		int count = 0;
+		String[] recentComments = new String[3];		
 		
-		if(evaluations.size() >= 3){
-			for(int i = evaluations.size() - 1; i >= (evaluations.size() - 3); i--){
-				if(!evaluations.get(i).getComment().equals("")){
-					recentComments[count] = evaluations.get(i).getComment();
-					count++;}
-				}
-			return recentComments;	
-			
-		}else{
-			if(!evaluations.isEmpty()){
-				for (Evaluation e : evaluations){
-					recentComments[count] = e.getComment();
-					count++;}
-				return recentComments;
-				
-			}else{
-				throw new NoCommentsException();}
+		int count = 0;
+		int i = evaluations.size() -1;
+		while(count < 3 && i >= 0){
+			if(!evaluations.get(i).getComment().equals("")){
+				recentComments[count] = evaluations.get(i).getComment();
+				count++;
+			}
+			i--;
 		}
+		
+		
+		return recentComments;
 	}
 
 	//GETTERS AND SETTERS
@@ -168,7 +167,7 @@ public class PointOfSale {
 	}
 
 
-	public static List<Product> getProducts() {
+	public List<Product> getProducts() {
 		return products;
 	}
 	
@@ -226,14 +225,7 @@ public class PointOfSale {
 		return location;
 	}
 	
-	public void setLocation(double longitude, double latitude){
-		this.location = new Location(longitude, latitude);
-	}
 
-
-	public void setProducts(List<Product> products) {
-		PointOfSale.products = products;
-	}
 	
 	
 	

@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(ServerConstants.SERVER_REQUEST)
+@RequestMapping(ServerConstants.USER_REQUEST)
 public class UserController {
 	
 	private UserService userService;

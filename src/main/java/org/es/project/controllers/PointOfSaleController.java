@@ -12,8 +12,11 @@ import org.es.project.exceptions.NotCreatorException;
 import org.es.project.exceptions.Validator;
 import org.es.project.models.Location;
 import org.es.project.models.PointOfSale;
+import org.es.project.models.User;
 import org.es.project.services.implementations.PointOfSaleServiceImpl;
+import org.es.project.services.implementations.UserServiceImpl;
 import org.es.project.services.interfaces.PointOfSaleService;
+import org.es.project.services.interfaces.UserService;
 import org.es.project.util.ServerConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -29,6 +32,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class PointOfSaleController {
 	
 	private PointOfSaleService pointOfSaleService;
+	private UserService userService;
 	
 	@RequestMapping(value = "/new", 
 			method = RequestMethod.POST, 
@@ -36,10 +40,14 @@ public class PointOfSaleController {
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<PointOfSale> createPointOfSale(@RequestBody AddNDeletePointOfSaleBean requestBody) throws ServletException{
 		PointOfSale point = pointOfSaleService.findByLocation(new Location(requestBody.getPointLongitude(), requestBody.getPointLatitude()));
-		if(Validator.isEmpty(point)){
+		if(!Validator.isEmpty(point)){
 			throw new RuntimeException("There is already a point at this location");
 		}
-		PointOfSale newPoint = new PointOfSale(requestBody.getCreator(), requestBody.getPointName(),
+		User creator = userService.findByUsername(requestBody.getCreator());
+		if(Validator.isEmpty(creator)){
+			throw new RuntimeException("Invalid Username");
+		}
+		PointOfSale newPoint = new PointOfSale(creator, requestBody.getPointName(),
 				requestBody.getPointLongitude(), requestBody.getPointLatitude(), requestBody.getPointComment(),
 				requestBody.getPointImage());
 		
@@ -128,5 +136,10 @@ public class PointOfSaleController {
 	@Autowired
 	public void setPointOfSaleService(PointOfSaleServiceImpl pointOfSaleServiceImpl) {
 		this.pointOfSaleService = pointOfSaleServiceImpl;
+	}
+	
+	@Autowired
+	public void setUserService(UserServiceImpl userServiceImpl) {
+		this.userService = userServiceImpl;
 	}
 }

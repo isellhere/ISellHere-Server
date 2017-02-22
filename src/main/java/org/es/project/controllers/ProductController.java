@@ -1,8 +1,11 @@
 package org.es.project.controllers;
 
+import java.util.List;
+
 import javax.servlet.ServletException;
 
 import org.es.project.beans.AddNDeleteProductBean;
+import org.es.project.beans.AddNDeleteProductEvaluationBean;
 import org.es.project.beans.DeleteProductBean;
 import org.es.project.beans.EditProductBean;
 import org.es.project.beans.GetProductBean;
@@ -10,6 +13,7 @@ import org.es.project.exceptions.ExceptionHandler;
 import org.es.project.exceptions.InvalidDataException;
 import org.es.project.exceptions.NotCreatorException;
 import org.es.project.exceptions.Validator;
+import org.es.project.models.Evaluation;
 import org.es.project.models.Location;
 import org.es.project.models.PointOfSale;
 import org.es.project.models.Product;
@@ -21,6 +25,7 @@ import org.es.project.services.interfaces.PointOfSaleService;
 import org.es.project.services.interfaces.ProductService;
 import org.es.project.services.interfaces.UserService;
 import org.es.project.util.ServerConstants;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -131,7 +136,7 @@ public class ProductController {
 		}  
 	}
 	
-	@RequestMapping(value = "/delete/{id}",
+	@RequestMapping(value = "/delete",
 			method = RequestMethod.DELETE,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Product> deleteProduct (@RequestBody DeleteProductBean requestBody) throws ServletException{
@@ -164,6 +169,47 @@ public class ProductController {
 		}catch(DataAccessException dae){
 			throw new ServletException("An error has occurred: " + dae.getMessage());
 		}  
+	}
+	
+	@RequestMapping(value =  "/evaluate",
+			method = RequestMethod.POST,
+			consumes = MediaType.APPLICATION_JSON_VALUE,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Product> evaluateProduct(@RequestBody AddNDeleteProductEvaluationBean requestBody){
+		
+		User creator = userService.findByUsername(requestBody.getUser());
+		Product product = productService.findByName(requestBody.getProduct());
+		
+		if(Validator.isEmpty(product)){
+			throw new RuntimeException("Invalid Product");
+		}
+		if(Validator.isEmpty(creator)){
+			throw new RuntimeException("Invalid Username");
+		}
+		if(requestBody.getComment().equals("")){
+			product.addEvaluation(requestBody.getGrade(), requestBody.getUser());
+		
+		}else{
+			product.addEvaluation(requestBody.getGrade(), requestBody.getComment(), requestBody.getUser());
+		}
+		return new ResponseEntity<>(product, HttpStatus.CREATED);
+		
+	}
+	
+	@RequestMapping(value = "/getEvaluations/{name}",
+			method = RequestMethod.GET,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Evaluation>> getEvaluation(@PathVariable String name){
+		Product product = productService.findByName(name);
+		
+		if(Validator.isEmpty(product)){
+			throw new RuntimeException("Invalid Product");
+		}
+		
+		List<Evaluation> evaluations = product.getEvaluations();
+		
+		return new ResponseEntity<List<Evaluation>>(evaluations, HttpStatus.OK);
+		
 	}
 	
 	@Autowired

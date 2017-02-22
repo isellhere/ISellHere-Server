@@ -91,12 +91,12 @@ public class ProductTest {
 
 	@Test
 	public void showProductGradeTest1() {
-		product1.addEvaluation(10);
-		product1.addEvaluation(5);
-		product1.addEvaluation(4);
+		product1.addEvaluation(10, "Maria");
+		product1.addEvaluation(5, "Benicio");
+		product1.addEvaluation(4, "Jose");
 		Assert.assertEquals(product1.showProductGrade(), 19.0 / 3, 0.00001);
-		product1.addEvaluation(9);
-		product1.addEvaluation(8);
+		product1.addEvaluation(9, "Chuck");
+		product1.addEvaluation(8, "Blair");
 		Assert.assertEquals(product1.showProductGrade(), 36.0 / 5, 0.00001);
 
 	}
@@ -117,12 +117,12 @@ public class ProductTest {
 	public void showRecentCommentsTest1() {
 		String[] strList = new String[3];
 
-		product1.addEvaluation(10);
-		product1.addEvaluation(5);
-		product1.addEvaluation(4);
+		product1.addEvaluation(10, "Maria");
+		product1.addEvaluation(5, "Benicio");
+		product1.addEvaluation(4, "Jose");
 		Assert.assertArrayEquals(product1.showRecentComments(), strList);
-		product1.addEvaluation(9);
-		product1.addEvaluation(8);
+		product1.addEvaluation(9, "Chuck");
+		product1.addEvaluation(8, "Blair");
 		Assert.assertArrayEquals(product1.showRecentComments(), strList);
 
 	}

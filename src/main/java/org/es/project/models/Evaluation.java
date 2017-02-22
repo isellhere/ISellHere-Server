@@ -13,14 +13,16 @@ public class Evaluation {
 	
 	private int grade; // depois eh bom ser enum
 	private String comment;
+	private String creatorUsername;
 	
-	public Evaluation(int grade, String comment){
+	public Evaluation(int grade, String comment, String creatorUsername){
 		this.grade = grade;
 		this.comment = comment;
+		this.creatorUsername = creatorUsername;
 	}
 	
-	public Evaluation(int grade){
-		this(grade, "");
+	public Evaluation(int grade, String creatorUsername){
+		this(grade, "", creatorUsername);
 	}
 
 	public int getGrade() {
@@ -33,6 +35,15 @@ public class Evaluation {
 	
 	public Long getId(){
 		return id;
+	}
+	
+
+	public String getCreatorUsername() {
+		return creatorUsername;
+	}
+
+	public void setCreatorUsername(String creatorUsername) {
+		this.creatorUsername = creatorUsername;
 	}
 
 	@Override
@@ -51,7 +62,7 @@ public class Evaluation {
 			return false;
 		}
 		Evaluation other = (Evaluation) obj;
-		if(grade == other.getGrade() && comment.equals(other.getComment())){
+		if(grade == other.getGrade() && comment.equals(other.getComment()) && creatorUsername.equals(other.getCreatorUsername())){
 			return true;
 		}else{
 			return false;

@@ -5,12 +5,12 @@ import org.es.project.models.User;
 
 public class AddNDeletePointOfSaleEvaluationBean {
 	private String user;
-	private PointOfSale point;
+	private String point;
 	private int grade;
 	private String comment;
 	
 	
-	public AddNDeletePointOfSaleEvaluationBean(String user, PointOfSale point, int grade, String comment) {
+	public AddNDeletePointOfSaleEvaluationBean(String user, String point, int grade, String comment) {
 		this.user = user;
 		this.point = point;
 		this.grade = grade;
@@ -29,11 +29,11 @@ public class AddNDeletePointOfSaleEvaluationBean {
 		this.user = user;
 	}
 
-	public PointOfSale getPoint() {
+	public String getPoint() {
 		return point;
 	}
 
-	public void setPoint(PointOfSale point) {
+	public void setPoint(String point) {
 		this.point = point;
 	}
 

@@ -1,7 +1,5 @@
 package org.es.project.beans;
 
-import org.es.project.models.Product;
-import org.es.project.models.User;
 
 public class AddNDeleteProductEvaluationBean {
 	private String user;

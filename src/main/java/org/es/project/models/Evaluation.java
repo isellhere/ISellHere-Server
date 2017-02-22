@@ -15,6 +15,10 @@ public class Evaluation {
 	private String comment;
 	private String creatorUsername;
 	
+	public Evaluation(){
+		
+	}
+	
 	public Evaluation(int grade, String comment, String creatorUsername){
 		this.grade = grade;
 		this.comment = comment;
@@ -38,6 +42,14 @@ public class Evaluation {
 	}
 	
 
+	public void setGrade(int grade) {
+		this.grade = grade;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+
 	public String getCreatorUsername() {
 		return creatorUsername;
 	}
@@ -45,6 +57,7 @@ public class Evaluation {
 	public void setCreatorUsername(String creatorUsername) {
 		this.creatorUsername = creatorUsername;
 	}
+	
 
 	@Override
 	public int hashCode() {

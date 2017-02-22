@@ -31,6 +31,11 @@ public class Product {
 	private List<Evaluation> evaluations;
 	
 	
+	public Product(){
+		
+	}
+	
+	
 	public Product(User creator, PointOfSale pointOfSale, String name, double price, String comment, File image){
 		this.creator = creator;
 		this.pointOfSale = pointOfSale;
@@ -147,6 +152,23 @@ public class Product {
 	public List<Evaluation> getEvaluations(){
 		return evaluations;
 	}
+	
+	
+
+	public void setCreator(User creator) {
+		this.creator = creator;
+	}
+
+
+	public void setPointOfSale(PointOfSale pointOfSale) {
+		this.pointOfSale = pointOfSale;
+	}
+
+
+	public void setEvaluations(List<Evaluation> evaluations) {
+		this.evaluations = evaluations;
+	}
+
 
 	@Override
 	public int hashCode() {

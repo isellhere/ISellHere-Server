@@ -36,6 +36,10 @@ public class PointOfSale {
 	private List<Evaluation> evaluations;
 	
 	
+	public PointOfSale(){
+		
+	}
+	
 	public PointOfSale(User creator, String name, double longitude, double latitude, String comment, File image){
 		this.creator = creator;
 		this.name = name;
@@ -95,6 +99,7 @@ public class PointOfSale {
 	}
 	
 	
+
 	public void addEvaluation(int grade, String comment, String creatorUsername){
 		Evaluation evaluation = new Evaluation(grade, comment, creatorUsername);
 		evaluations.add(evaluation);
@@ -192,6 +197,22 @@ public class PointOfSale {
 
 	public void setImage(File image) {
 		this.image = image;
+	}
+	
+	public void setCreator(User creator) {
+		this.creator = creator;
+	}
+
+	public void setLocation(Location location) {
+		this.location = location;
+	}
+
+	public void setProducts(List<Product> products) {
+		this.products = products;
+	}
+
+	public void setEvaluations(List<Evaluation> evaluations) {
+		this.evaluations = evaluations;
 	}
 
 

@@ -12,7 +12,7 @@ public class EvaluationTest {
 
 	@Before
 	public void initialization() {
-		eva0 = new Evaluation(7);
+		eva0 = new Evaluation(7, "Jose");
 		eva1 = new Evaluation(9, "Get in the damn robot Shinji!!");
 
 	}

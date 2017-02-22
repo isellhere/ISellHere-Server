@@ -95,13 +95,13 @@ public class PointOfSale {
 	}
 	
 	
-	public void addEvaluation(int grade, String comment){
-		Evaluation evaluation = new Evaluation(grade, comment);
+	public void addEvaluation(int grade, String comment, String creatorUsername){
+		Evaluation evaluation = new Evaluation(grade, comment, creatorUsername);
 		evaluations.add(evaluation);
 	}
 	
-	public void addEvaluation(int grade){
-		Evaluation evaluation = new Evaluation(grade);
+	public void addEvaluation(int grade, String creatorUsername){
+		Evaluation evaluation = new Evaluation(grade, creatorUsername);
 		evaluations.add(evaluation);
 	}
 	

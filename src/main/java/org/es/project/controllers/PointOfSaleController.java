@@ -1,8 +1,11 @@
 package org.es.project.controllers;
 
+import java.util.List;
+
 import javax.servlet.ServletException;
 
 import org.es.project.beans.AddNDeletePointOfSaleBean;
+import org.es.project.beans.AddNDeletePointOfSaleEvaluationBean;
 import org.es.project.beans.DeletePointOfSaleBean;
 import org.es.project.beans.EditPointOfSaleBean;
 import org.es.project.beans.GetPointOfSaleBean;
@@ -10,6 +13,7 @@ import org.es.project.exceptions.ExceptionHandler;
 import org.es.project.exceptions.InvalidDataException;
 import org.es.project.exceptions.NotCreatorException;
 import org.es.project.exceptions.Validator;
+import org.es.project.models.Evaluation;
 import org.es.project.models.Location;
 import org.es.project.models.PointOfSale;
 import org.es.project.models.User;
@@ -23,6 +27,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -148,7 +153,46 @@ public class PointOfSaleController {
 		
 	}
 		
+	@RequestMapping(value =  "/evaluate",
+			method = RequestMethod.POST,
+			consumes = MediaType.APPLICATION_JSON_VALUE,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<PointOfSale> evaluatePointOfSale(@RequestBody AddNDeletePointOfSaleEvaluationBean requestBody){
 		
+		User creator = userService.findByUsername(requestBody.getUser());
+		PointOfSale point = pointOfSaleService.findByName(requestBody.getPoint());
+		
+		if(Validator.isEmpty(point)){
+			throw new RuntimeException("Invalid Point of Sale");
+		}
+		if(Validator.isEmpty(creator)){
+			throw new RuntimeException("Invalid Username");
+		}
+		if(requestBody.getComment().equals("")){
+			point.addEvaluation(requestBody.getGrade(), requestBody.getUser());
+		
+		}else{
+			point.addEvaluation(requestBody.getGrade(), requestBody.getComment(), requestBody.getUser());
+		}
+		return new ResponseEntity<>(point, HttpStatus.CREATED);
+		
+	}
+	
+	@RequestMapping(value = "/getEvaluations/{name}",
+			method = RequestMethod.GET,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Evaluation>> getEvaluation(@PathVariable String name){
+		PointOfSale point = pointOfSaleService.findByName(name);
+		
+		if(Validator.isEmpty(point)){
+			throw new RuntimeException("Invalid Point of sale");
+		}
+		
+		List<Evaluation> evaluations = point.getEvaluations();
+		
+		return new ResponseEntity<List<Evaluation>>(evaluations, HttpStatus.OK);
+		
+	}
 	
 	@Autowired
 	public void setPointOfSaleService(PointOfSaleServiceImpl pointOfSaleServiceImpl) {

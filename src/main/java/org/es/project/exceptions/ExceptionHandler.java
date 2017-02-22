@@ -1,5 +1,6 @@
 package org.es.project.exceptions;
 
+import org.es.project.beans.AddNDeleteProductEvaluationBean;
 import org.es.project.beans.EditPointOfSaleBean;
 import org.es.project.beans.EditProductBean;
 import org.es.project.beans.LoginBean;
@@ -73,6 +74,6 @@ public class ExceptionHandler {
 			throw new NotCreatorException();
 		}
 		
-	}
+	}	
 
 }

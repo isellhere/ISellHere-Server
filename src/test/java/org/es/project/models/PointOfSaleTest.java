@@ -167,12 +167,12 @@ public class PointOfSaleTest {
 	public void showRecentCommentsTest1() {
 		String[] strList = new String[3];
 
-		point1.addEvaluation(10);
-		point1.addEvaluation(5);
-		point1.addEvaluation(4);
+		point1.addEvaluation(10, "Maria");
+		point1.addEvaluation(5, "Benicio");
+		point1.addEvaluation(4, "Jose");
 		Assert.assertArrayEquals(point1.showRecentComments(), strList);
-		point1.addEvaluation(9);
-		point1.addEvaluation(8);
+		point1.addEvaluation(9, "Chuck");
+		point1.addEvaluation(8, "Blair");
 		Assert.assertArrayEquals(point1.showRecentComments(), strList);
 
 	}
@@ -202,12 +202,12 @@ public class PointOfSaleTest {
 
 	@Test
 	public void showProductGradeTest1() {
-		point1.addEvaluation(10);
-		point1.addEvaluation(5);
-		point1.addEvaluation(4);
+		point1.addEvaluation(10, "Maria");
+		point1.addEvaluation(5, "Benicio");
+		point1.addEvaluation(4, "Jose");
 		Assert.assertEquals(point1.showPointOfSaleGrade(), 19.0 / 3, 0.00001);
-		point1.addEvaluation(9);
-		point1.addEvaluation(8);
+		point1.addEvaluation(9, "Chuck");
+		point1.addEvaluation(8, "Blair");
 		Assert.assertEquals(point1.showPointOfSaleGrade(), 36.0 / 5, 0.00001);
 
 	}

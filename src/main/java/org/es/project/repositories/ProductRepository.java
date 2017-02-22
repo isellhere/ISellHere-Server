@@ -14,10 +14,9 @@ public interface ProductRepository extends CrudRepository<Product, Long>{
 //	@Query(value = "Select product from Product product, PointOfSale pointofsale where product.pointOfSale=:pointofsale.id AND pointofsale.location=:location")
 //	public Product findByLocation(@Param("location") Location location);
 	
-	@Query(value = "Select product from Product product, PointOfSale point where product.pointOfSale = point and point.location = location")
+	@Query(value = "Select product from Product product, PointOfSale point where product.pointOfSale=:point and point.location=:location")
 	public Product findByLocation(@Param("location") Location location);
 
-	@Query(value = "Select product from Product product, PointOfSale point where product.pointOfSale = point and point.location = location and"
-			+ " product.name = name")
+	@Query(value = "Select product from Product product, PointOfSale point where product.pointOfSale=:point and point.location=:location and product.name=:name")
 	public Product findByNameNLocation(@Param("location") Location location, @Param("name") String name);
 }

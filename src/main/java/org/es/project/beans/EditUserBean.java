@@ -10,6 +10,10 @@ public class EditUserBean {
 		this.user = user;
 		this.newPassword = newPassword;
 	}
+	
+	public EditUserBean(){
+		
+	}
 
 	public String getUser() {
 		return user;

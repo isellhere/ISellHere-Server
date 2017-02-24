@@ -17,7 +17,7 @@ public class SecurityConfiguration {
 		filterRegistration.addUrlPatterns( ServerConstants.POINT_OF_SALE_REQUEST + "/*");
 		filterRegistration.addUrlPatterns( ServerConstants.PRODUCT_REQUEST + "/*");
 		filterRegistration.addUrlPatterns( ServerConstants.SEARCH_REQUEST + "/*");
-		filterRegistration.addUrlPatterns( ServerConstants.USER_REQUEST + "/*");
+		filterRegistration.addUrlPatterns( ServerConstants.USER_REQUEST + "/edit");
 		
 		return filterRegistration;
 	}

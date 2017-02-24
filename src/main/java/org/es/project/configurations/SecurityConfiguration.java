@@ -1,6 +1,7 @@
 package org.es.project.configurations;
 
 import org.es.project.filters.AuthorizationFilter;
+import org.es.project.util.ServerConstants;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,8 +14,10 @@ public class SecurityConfiguration {
 		FilterRegistrationBean filterRegistration = new FilterRegistrationBean();
 		filterRegistration.setFilter(new AuthorizationFilter());
 		
-		filterRegistration.addUrlPatterns("/server/pointsofsale/*");
-		filterRegistration.addUrlPatterns("/server/products/*");
+		filterRegistration.addUrlPatterns( ServerConstants.POINT_OF_SALE_REQUEST + "/*");
+		filterRegistration.addUrlPatterns( ServerConstants.PRODUCT_REQUEST + "/*");
+		filterRegistration.addUrlPatterns( ServerConstants.SEARCH_REQUEST + "/*");
+		filterRegistration.addUrlPatterns( ServerConstants.USER_REQUEST + "/*");
 		
 		return filterRegistration;
 	}

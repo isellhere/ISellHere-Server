@@ -1,5 +1,6 @@
 package org.es.project.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -191,6 +192,20 @@ public class PointOfSaleController {
 		List<Evaluation> evaluations = point.getEvaluations();
 		
 		return new ResponseEntity<List<Evaluation>>(evaluations, HttpStatus.OK);
+		
+	}
+	
+	@RequestMapping(value = "/getAllPoints",
+			method = RequestMethod.GET,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<PointOfSale>> getAllPoints(){
+		
+		List<PointOfSale> allPoints = new ArrayList<>();
+		for(PointOfSale point : pointOfSaleService.findAll()){
+			allPoints.add(point);
+		}
+		
+		return new ResponseEntity<List<PointOfSale>>(allPoints, HttpStatus.OK);
 		
 	}
 	

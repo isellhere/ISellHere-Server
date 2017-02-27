@@ -57,6 +57,12 @@ public class ProductController {
 		if(Validator.isEmpty(creator)){
 			throw new RuntimeException("Invalid Username");
 		}
+		
+		for(Product product: point.getProducts()){
+			if(product.getName().equals(requestBody.getProductName())){
+				throw new RuntimeException("There is already a product with this name at this point of sale");
+			}
+		}
 		Product newProduct = point.addProduct(creator, requestBody.getProductName(), requestBody.getProductPrice(), requestBody.getProductComment(), requestBody.getProductImage());
 		
 		productService.save(newProduct);
@@ -68,17 +74,15 @@ public class ProductController {
 			method = RequestMethod.POST,
 			consumes = MediaType.APPLICATION_JSON_VALUE,
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Product> getProductByName(@RequestBody GetProductBean requestBody){
+	public ResponseEntity<Product> getProduct(@RequestBody GetProductBean requestBody){
 		
-		Location location = new Location(requestBody.getLongitude(), requestBody.getLatitude());
-		Product product = productService.findByNameNLocation(location, requestBody.getProductName());
-		
-		if(Validator.isEmpty(product)){
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		
-		}else{
-			return new ResponseEntity<>(product, HttpStatus.OK);
+		PointOfSale point = pointOfSaleService.findByName(requestBody.getPointName());
+		for(Product product : point.getProducts()){
+			if (product.getName().equals(requestBody.getProductName())){
+				return new ResponseEntity<>(product, HttpStatus.OK);
+			}
 		}
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
 
 

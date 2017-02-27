@@ -45,10 +45,10 @@ public class PointOfSaleController {
 			consumes = MediaType.APPLICATION_JSON_VALUE, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<PointOfSale> createPointOfSale(@RequestBody AddNDeletePointOfSaleBean requestBody) throws ServletException{
-		PointOfSale point = pointOfSaleService.findByLocation(new Location(requestBody.getPointLongitude(), requestBody.getPointLatitude()));
-		if(!Validator.isEmpty(point)){
-			throw new RuntimeException("There is already a point at this location");
-		}
+		//PointOfSale point = pointOfSaleService.findByLocation(new Location(requestBody.getPointLongitude(), requestBody.getPointLatitude()));
+		//if(!Validator.isEmpty(point)){
+		//	throw new RuntimeException("There is already a point at this location");
+		//}
 		User creator = userService.findByUsername(requestBody.getCreator());
 		if(Validator.isEmpty(creator)){
 			throw new RuntimeException("Invalid Username");

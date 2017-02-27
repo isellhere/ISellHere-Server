@@ -13,12 +13,12 @@ public class AddNDeleteProductBean {
 	private String productName;
 	private String productComment;
 	private double productPrice;
-	private File productImage;
+	private String productImage;
 	
 	
 	
 	public AddNDeleteProductBean(String creator, String pointOfSale, String productName, String productComment,
-			double productPrice, File productImage) {
+			double productPrice, String productImage) {
 		this.creator = creator;
 		this.pointOfSale = pointOfSale;
 		this.productName = productName;
@@ -71,11 +71,11 @@ public class AddNDeleteProductBean {
 		this.productPrice = productPrice;
 	}
 
-	public File getProductImage() {
+	public String getProductImage() {
 		return productImage;
 	}
 
-	public void setProductImage(File productImage) {
+	public void setProductImage(String productImage) {
 		this.productImage = productImage;
 	}
 	

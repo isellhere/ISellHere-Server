@@ -27,7 +27,7 @@ public class PointOfSale {
 	@Column(unique = true)
 	private String name;
 	private String comment;
-	private File image;
+	private String image;
 	@OneToOne(cascade = CascadeType.ALL)
 	private Location location;
 	@OneToMany(cascade = CascadeType.ALL)
@@ -40,7 +40,7 @@ public class PointOfSale {
 		
 	}
 	
-	public PointOfSale(User creator, String name, double longitude, double latitude, String comment, File image){
+	public PointOfSale(User creator, String name, double longitude, double latitude, String comment, String image){
 		this.creator = creator;
 		this.name = name;
 		this.comment = comment;
@@ -55,7 +55,7 @@ public class PointOfSale {
 		this(creator, name, longitude, latitude, comment, null);
 	}
 	
-	public PointOfSale(User creator, String name, double longitude, File image, double latitude){
+	public PointOfSale(User creator, String name, double longitude, String image, double latitude){
 		this(creator, name, longitude, latitude, "", image);
 	}
 	
@@ -63,7 +63,7 @@ public class PointOfSale {
 		this(creator, name, longitude, latitude, "", null);
 	}
 
-	public Product addProduct(User creator, String name, double price, String comment, File image){
+	public Product addProduct(User creator, String name, double price, String comment, String image){
 		Product product = new Product(creator, this, name, price, comment, image);
 		getProducts().add(product);
 		return product;
@@ -167,7 +167,7 @@ public class PointOfSale {
 	}
 
 
-	public File getImage() {
+	public String getImage() {
 		return image;
 	}
 
@@ -195,7 +195,7 @@ public class PointOfSale {
 	}
 
 
-	public void setImage(File image) {
+	public void setImage(String image) {
 		this.image = image;
 	}
 	

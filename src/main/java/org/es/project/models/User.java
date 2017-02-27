@@ -34,17 +34,17 @@ public class User {
 }
 
 	
-	public void createPointOfSale(String name, double longitude, double latitude, String comment, File image){
+	public void createPointOfSale(String name, double longitude, double latitude, String comment, String image){
 		
 	}
 	
-	public void editPointOfSale(PointOfSale pointOfSale , String name, String comment, File image){
+	public void editPointOfSale(PointOfSale pointOfSale , String name, String comment, String image){
 		pointOfSale.setName(name);
 		pointOfSale.setComment(comment);
 		pointOfSale.setImage(image);
 	}
 	
-	public void editProduct(Product product, String name, double price, String comment, File image){
+	public void editProduct(Product product, String name, double price, String comment, String image){
 		product.setName(name);
 		product.setPrice(price);
 		product.setComment(comment);

@@ -10,11 +10,11 @@ public class EditProductBean {
 	private String productName;
 	private String productComment;
 	private double productPrice;
-	private File productImage;
+	private String productImage;
 	private String selectedProduct;
 	
 	
-	public EditProductBean(String requester, String productName, String productComment, double productPrice, File productImage, String selectedProduct) {
+	public EditProductBean(String requester, String productName, String productComment, double productPrice, String productImage, String selectedProduct) {
 		this.requester = requester;
 		this.productName = productName;
 		this.productComment = productComment;
@@ -59,11 +59,11 @@ public class EditProductBean {
 		this.productPrice = productPrice;
 	}
 
-	public File getProductImage() {
+	public String getProductImage() {
 		return productImage;
 	}
 
-	public void setProductImage(File productImage) {
+	public void setProductImage(String productImage) {
 		this.productImage = productImage;
 	}
 

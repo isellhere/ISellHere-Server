@@ -10,11 +10,11 @@ public class EditPointOfSaleBean {
 	private String selectedPoint;
 	private String pointName;
 	private String pointComment;
-	private File pointImage;
+	private String pointImage;
 
 	
 	
-	public EditPointOfSaleBean(String requester, String selectedPoint, String pointName, String pointComment, File pointImage) {
+	public EditPointOfSaleBean(String requester, String selectedPoint, String pointName, String pointComment, String pointImage) {
 		this.requester = requester;
 		this.selectedPoint = selectedPoint;
 		this.pointName = pointName;
@@ -58,11 +58,11 @@ public class EditPointOfSaleBean {
 		this.pointComment = pointComment;
 	}
 
-	public File getPointImage() {
+	public String getPointImage() {
 		return pointImage;
 	}
 
-	public void setPointImage(File pointImage) {
+	public void setPointImage(String pointImage) {
 		this.pointImage = pointImage;
 	}	
 	

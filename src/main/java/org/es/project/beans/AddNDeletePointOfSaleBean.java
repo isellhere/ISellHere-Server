@@ -13,10 +13,10 @@ public class AddNDeletePointOfSaleBean {
 	private double pointLongitude;
 	private double pointLatitude;
 	private String pointComment;
-	private File pointImage;
+	private String pointImage;
 	
 	
-	public AddNDeletePointOfSaleBean(String creator, String pointName, double pointLongitude, double pointLatitude, String pointComment, File pointImage) {
+	public AddNDeletePointOfSaleBean(String creator, String pointName, double pointLongitude, double pointLatitude, String pointComment, String pointImage) {
 		this.creator = creator;
 		this.pointName = pointName;
 		this.pointLongitude = pointLongitude;
@@ -69,11 +69,11 @@ public class AddNDeletePointOfSaleBean {
 		this.pointComment = pointComment;
 	}
 
-	public File getPointImage() {
+	public String getPointImage() {
 		return pointImage;
 	}
 
-	public void setPointImage(File pointImage) {
+	public void setPointImage(String pointImage) {
 		this.pointImage = pointImage;
 	}
 	

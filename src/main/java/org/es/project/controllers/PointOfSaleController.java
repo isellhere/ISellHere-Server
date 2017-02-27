@@ -66,8 +66,8 @@ public class PointOfSaleController {
 					consumes = MediaType.APPLICATION_JSON_VALUE,
 			        produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<PointOfSale> getPointOfSaleByLocation(@RequestBody GetPointOfSaleBean requestBody){
-		Location location = new Location(requestBody.getLongitude(), requestBody.getLatitude());
-		PointOfSale point = pointOfSaleService.findByNameNLocation(location, requestBody.getPointName());
+		//Location location = new Location(requestBody.getLongitude(), requestBody.getLatitude());
+		PointOfSale point = pointOfSaleService.findByName(requestBody.getPointName());
 		ResponseEntity<PointOfSale> result;
 		
 		if(Validator.isEmpty(point)){

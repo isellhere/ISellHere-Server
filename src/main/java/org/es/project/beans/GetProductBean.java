@@ -1,17 +1,13 @@
 package org.es.project.beans;
 
-import org.es.project.models.Location;
-import org.es.project.models.User;
 
 public class GetProductBean {
 	private String productName;
-	private double longitude;
-	private double latitude;
+	private String pointName;
 	
-	public GetProductBean(String productName, double longitude, double latitude){
+	public GetProductBean(String productName, String pointName){
 		this.productName = productName;
-		this.longitude = longitude;
-		this.latitude = latitude;
+		this.pointName = pointName;
 	}
 	
 	public GetProductBean(){
@@ -26,21 +22,15 @@ public class GetProductBean {
 		this.productName = productName;
 	}
 
-	public double getLongitude() {
-		return longitude;
+	public String getPointName() {
+		return pointName;
 	}
 
-	public void setLongitude(double longitude) {
-		this.longitude = longitude;
+	public void setPointName(String pointName) {
+		this.pointName = pointName;
 	}
 
-	public double getLatitude() {
-		return latitude;
-	}
-
-	public void setLatitude(double latitude) {
-		this.latitude = latitude;
-	}
+	
 	
 	
 

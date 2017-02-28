@@ -37,7 +37,8 @@ public class PointOfSale {
 	
 	
 	public PointOfSale(){
-		
+		this.products = new ArrayList<>();
+		this.evaluations = new ArrayList<>();
 	}
 	
 	public PointOfSale(User creator, String name, double longitude, double latitude, String comment, String image){

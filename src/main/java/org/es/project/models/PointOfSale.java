@@ -26,7 +26,6 @@ public class PointOfSale {
 	@Column(unique = true)
 	private String name;
 	private String comment;
-	@Column(length = 200000)
 	private String image;
 	@OneToOne(cascade = CascadeType.ALL)
 	private Location location;

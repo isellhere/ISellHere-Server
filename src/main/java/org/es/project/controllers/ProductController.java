@@ -217,6 +217,20 @@ public class ProductController {
 		
 	}
 	
+	@RequestMapping(value = "/getProducts/{pointName}",
+			method = RequestMethod.GET,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Product>> getProducts(@PathVariable String pointName){
+		PointOfSale point = pointOfSaleService.findByName(pointName);
+		
+		if(Validator.isEmpty(point)){
+			throw new RuntimeException("Invalid Point of Sale");
+		}
+		
+		return new ResponseEntity<List<Product>>(point.getProducts(), HttpStatus.OK);
+		
+	}
+	
 	@Autowired
 	public void setProductService(ProductServiceImpl productServiceImpl){
 		this.productService = productServiceImpl;

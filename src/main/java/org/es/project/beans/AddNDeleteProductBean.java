@@ -79,4 +79,5 @@ public class AddNDeleteProductBean {
 		this.productImage = productImage;
 	}
 	
+	
 }

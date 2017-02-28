@@ -124,7 +124,7 @@ public class PointOfSaleController {
 	}
 	
 	@RequestMapping(value = "/delete",
-			method = RequestMethod.DELETE,
+			method = RequestMethod.POST,
 			consumes = MediaType.APPLICATION_JSON_VALUE,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<PointOfSale> deletePointOfSale(@RequestBody DeletePointOfSaleBean requestBody) throws ServletException{

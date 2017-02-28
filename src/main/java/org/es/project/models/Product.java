@@ -1,11 +1,11 @@
 package org.es.project.models;
 
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -26,6 +26,7 @@ public class Product {
 	private String name;
 	private String comment;
 	private double price;
+	@Column(length = 200000)
 	private String image;
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Evaluation> evaluations;

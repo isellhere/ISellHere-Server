@@ -141,7 +141,8 @@ public class ProductController {
 	}
 	
 	@RequestMapping(value = "/delete",
-			method = RequestMethod.DELETE,
+			method = RequestMethod.POST,
+			consumes = MediaType.APPLICATION_JSON_VALUE,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Product> deleteProduct (@RequestBody DeleteProductBean requestBody) throws ServletException{
 		try{

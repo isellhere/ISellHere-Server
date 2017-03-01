@@ -3,6 +3,7 @@ package org.es.project.util.search;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.es.project.beans.modelbeans.ProductBean;
 import org.es.project.models.Location;
 import org.es.project.models.PointOfSale;
 import org.es.project.models.Product;
@@ -28,14 +29,14 @@ public class SearchTool {
 		return result;
 	}
 	
-	public static List<Product> searchProductInPoint(PointOfSale point, String name){
-		List<Product> result = new ArrayList<>();
+	public static List<ProductBean> searchProductInPoint(PointOfSale point, String name){
+		List<ProductBean> result = new ArrayList<>();
 		List<Product> productsInPoint = point.getProducts();
 		for(Product product : productsInPoint){
 			String searchingName = name.toLowerCase();
 			String productName = product.getName().toLowerCase();
 			if(productName.contains(searchingName)){
-				result.add(product);
+				result.add(product.createBean());
 			}
 		}
 		return result;

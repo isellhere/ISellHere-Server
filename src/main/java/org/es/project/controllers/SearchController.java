@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.ServletException;
 
+import org.es.project.beans.modelbeans.ProductBean;
 import org.es.project.models.Location;
 import org.es.project.models.PointOfSale;
 import org.es.project.models.Product;
@@ -43,11 +44,11 @@ public class SearchController {
 	@RequestMapping(value = "/searchproductinpoint/productname={productname}&pointname={pointname}", 
 			method = RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Product>> searchProductInPoint(@PathVariable String productname, @PathVariable String pointname) throws ServletException{
+	public ResponseEntity<List<ProductBean>> searchProductInPoint(@PathVariable String productname, @PathVariable String pointname) throws ServletException{
 		try{
 			PointOfSale point = pointOfSaleService.findByName(pointname);
-			List<Product> products = SearchTool.searchProductInPoint(point, productname);
-			return new ResponseEntity<List<Product>>(products, HttpStatus.OK);
+			List<ProductBean> products = SearchTool.searchProductInPoint(point, productname);
+			return new ResponseEntity<List<ProductBean>>(products, HttpStatus.OK);
 		}catch(DataAccessException dae){
 			throw new ServletException("An error has occurred: " +dae.getMessage());
 		}

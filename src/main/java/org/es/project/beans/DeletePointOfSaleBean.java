@@ -11,6 +11,10 @@ public class DeletePointOfSaleBean {
 		this.requester = requester;
 		this.pointName = pointName;
 	}
+	
+	public DeletePointOfSaleBean(){
+		
+	}
 
 	public String getRequester() {
 		return requester;

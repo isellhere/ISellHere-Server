@@ -1,5 +1,6 @@
 package org.es.project.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -9,6 +10,7 @@ import org.es.project.beans.AddNDeleteProductEvaluationBean;
 import org.es.project.beans.DeleteProductBean;
 import org.es.project.beans.EditProductBean;
 import org.es.project.beans.GetProductBean;
+import org.es.project.beans.modelbeans.ProductBean;
 import org.es.project.exceptions.ExceptionHandler;
 import org.es.project.exceptions.InvalidDataException;
 import org.es.project.exceptions.NotCreatorException;
@@ -48,7 +50,7 @@ public class ProductController {
 			method = RequestMethod.POST, 
 			consumes = MediaType.APPLICATION_JSON_VALUE, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Product> createProduct(@RequestBody AddNDeleteProductBean requestBody){
+	public ResponseEntity<ProductBean> createProduct(@RequestBody AddNDeleteProductBean requestBody){
 		User creator = userService.findByUsername(requestBody.getCreator());
 		PointOfSale point = pointOfSaleService.findByName(requestBody.getPointOfSale());
 		if(Validator.isEmpty(point)){
@@ -67,19 +69,19 @@ public class ProductController {
 		
 		productService.save(newProduct);
 		
-		return new ResponseEntity<>(newProduct, HttpStatus.CREATED);
+		return new ResponseEntity<>(newProduct.createBean(), HttpStatus.CREATED);
 	}
 	
 	@RequestMapping(value = "/get",
 			method = RequestMethod.POST,
 			consumes = MediaType.APPLICATION_JSON_VALUE,
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Product> getProduct(@RequestBody GetProductBean requestBody){
+	public ResponseEntity<ProductBean> getProduct(@RequestBody GetProductBean requestBody){
 		
 		PointOfSale point = pointOfSaleService.findByName(requestBody.getPointName());
 		for(Product product : point.getProducts()){
 			if (product.getName().equals(requestBody.getProductName())){
-				return new ResponseEntity<>(product, HttpStatus.OK);
+				return new ResponseEntity<>(product.createBean(), HttpStatus.OK);
 			}
 		}
 		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -90,7 +92,7 @@ public class ProductController {
 			method = RequestMethod.PUT,
 			consumes = MediaType.APPLICATION_JSON_VALUE,
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Product> editProduct(@RequestBody EditProductBean requestBody) throws ServletException{
+	public ResponseEntity<ProductBean> editProduct(@RequestBody EditProductBean requestBody) throws ServletException{
 		try{
 			
 			Product product = productService.findByName(requestBody.getSelectedProduct());
@@ -127,7 +129,7 @@ public class ProductController {
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			}
 			
-			return new ResponseEntity<>(updatedProduct, HttpStatus.OK);
+			return new ResponseEntity<>(updatedProduct.createBean(), HttpStatus.OK);
 			
 		} catch(InvalidDataException ide){
 			throw new ServletException("An error has occurred: " +ide.getMessage());
@@ -144,7 +146,7 @@ public class ProductController {
 			method = RequestMethod.POST,
 			consumes = MediaType.APPLICATION_JSON_VALUE,
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Product> deleteProduct (@RequestBody DeleteProductBean requestBody) throws ServletException{
+	public ResponseEntity<ProductBean> deleteProduct (@RequestBody DeleteProductBean requestBody) throws ServletException{
 		try{
 			
 			Product productToBeDeleted = productService.findByName(requestBody.getProductName());
@@ -166,7 +168,7 @@ public class ProductController {
 			if(Validator.isEmpty(deletedProduct)){
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			}else{
-				return new ResponseEntity<>(deletedProduct, HttpStatus.OK);
+				return new ResponseEntity<>(deletedProduct.createBean(), HttpStatus.OK);
 		}
 		}catch(NotCreatorException nce){
 			throw new ServletException("An error has occurred: " + nce.getMessage());
@@ -180,7 +182,7 @@ public class ProductController {
 			method = RequestMethod.POST,
 			consumes = MediaType.APPLICATION_JSON_VALUE,
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Product> evaluateProduct(@RequestBody AddNDeleteProductEvaluationBean requestBody){
+	public ResponseEntity<ProductBean> evaluateProduct(@RequestBody AddNDeleteProductEvaluationBean requestBody){
 		
 		User creator = userService.findByUsername(requestBody.getUser());
 		Product product = productService.findByName(requestBody.getProduct());
@@ -197,7 +199,7 @@ public class ProductController {
 		}else{
 			product.addEvaluation(requestBody.getGrade(), requestBody.getComment(), requestBody.getUser());
 		}
-		return new ResponseEntity<>(product, HttpStatus.CREATED);
+		return new ResponseEntity<>(product.createBean(), HttpStatus.CREATED);
 		
 	}
 	
@@ -220,14 +222,18 @@ public class ProductController {
 	@RequestMapping(value = "/getProducts/{pointName}",
 			method = RequestMethod.GET,
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Product>> getProducts(@PathVariable String pointName){
+	public ResponseEntity<List<ProductBean>> getProducts(@PathVariable String pointName){
 		PointOfSale point = pointOfSaleService.findByName(pointName);
 		
 		if(Validator.isEmpty(point)){
 			throw new RuntimeException("Invalid Point of Sale");
 		}
+		List<ProductBean> products = new ArrayList<>();
+		for(Product product: point.getProducts()){
+			products.add(product.createBean());
+		}
 		
-		return new ResponseEntity<List<Product>>(point.getProducts(), HttpStatus.OK);
+		return new ResponseEntity<List<ProductBean>>(products, HttpStatus.OK);
 		
 	}
 	

@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.es.project.beans.modelbeans.ProductBean;
 import org.es.project.exceptions.NoCommentsException;
 
 @Entity
@@ -100,6 +101,10 @@ public class Product {
 		
 		
 		return recentComments;
+	}
+	
+	public ProductBean createBean(){
+		return new ProductBean(creator.getUsername(), pointOfSale.getName(), name, comment, price, image, evaluations);
 	}
 	
 	

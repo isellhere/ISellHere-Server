@@ -3,6 +3,7 @@ package org.es.project.util.search;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.es.project.beans.modelbeans.PointOfSaleBean;
 import org.es.project.beans.modelbeans.ProductBean;
 import org.es.project.models.Location;
 import org.es.project.models.PointOfSale;
@@ -14,15 +15,15 @@ public class SearchTool {
 	
 	
 	
-	public static List<PointOfSale> searchPointOfSale(String name, Location location, Integer ray, PointOfSaleService pointOfSaleService){
-		List<PointOfSale> result = new ArrayList<>();
+	public static List<PointOfSaleBean> searchPointOfSale(String name, Location location, Integer ray, PointOfSaleService pointOfSaleService){
+		List<PointOfSaleBean> result = new ArrayList<>();
 		Iterable<PointOfSale> allPoints = pointOfSaleService.findAll();
 		for(PointOfSale point: allPoints){
 			if(distance(location.getLatitude(), location.getLongitude(), point.getLatitude(), point.getLongitude()) <= ray){
 				String searchingName = name.toLowerCase();
 				String pointName = point.getName().toLowerCase();
 				if(pointName.contains(searchingName)){
-					result.add(point);
+					result.add(point.createBean());
 				}
 			}
 		}
@@ -42,15 +43,15 @@ public class SearchTool {
 		return result;
 	}
 	
-	public static List<Product> searchProductGeneral(String name, Location location, Integer ray, ProductService productService){
-		List<Product> result = new ArrayList<>();
+	public static List<ProductBean> searchProductGeneral(String name, Location location, Integer ray, ProductService productService){
+		List<ProductBean> result = new ArrayList<>();
 		Iterable<Product> allProducts = productService.findAll();
 		for(Product product : allProducts){
 			if(distance(location.getLatitude(), location.getLongitude(), product.getPointOfSale().getLatitude(), product.getPointOfSale().getLongitude()) <= ray){
 				String searchingName = name.toLowerCase();
 				String productName = product.getName().toLowerCase();
 				if(productName.contains(searchingName)){
-					result.add(product);
+					result.add(product.createBean());
 				}
 			}
 		}

@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.ServletException;
 
+import org.es.project.beans.modelbeans.PointOfSaleBean;
 import org.es.project.beans.modelbeans.ProductBean;
 import org.es.project.models.Location;
 import org.es.project.models.PointOfSale;
@@ -35,10 +36,10 @@ public class SearchController {
 	@RequestMapping(value = "/searchpoint/name={name}&latitude={latitude}&longitude={longitude}&ray={ray}", 
 			method = RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<PointOfSale>> searchPointOfSale(@PathVariable String name, @PathVariable Double latitude, @PathVariable Double longitude, @PathVariable Integer ray){
+	public ResponseEntity<List<PointOfSaleBean>> searchPointOfSale(@PathVariable String name, @PathVariable Double latitude, @PathVariable Double longitude, @PathVariable Integer ray){
 		Location currentLocation = new Location(longitude, latitude);
-		List<PointOfSale> points = SearchTool.searchPointOfSale(name, currentLocation, ray, pointOfSaleService);
-		return new ResponseEntity<List<PointOfSale>>(points, HttpStatus.OK);
+		List<PointOfSaleBean> points = SearchTool.searchPointOfSale(name, currentLocation, ray, pointOfSaleService);
+		return new ResponseEntity<List<PointOfSaleBean>>(points, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/searchproductinpoint/productname={productname}&pointname={pointname}", 
@@ -58,10 +59,10 @@ public class SearchController {
 	@RequestMapping(value = "/searchproductgeneral/name={name}&latitude={latitude}&longitude={longitude}&ray={ray}", 
 			method = RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Product>> searchProductGeneral(@PathVariable String name, @PathVariable Double latitude, @PathVariable Double longitude, @PathVariable Integer ray){
+	public ResponseEntity<List<ProductBean>> searchProductGeneral(@PathVariable String name, @PathVariable Double latitude, @PathVariable Double longitude, @PathVariable Integer ray){
 		Location currentLocation = new Location(longitude, latitude);
-		List<Product> points = SearchTool.searchProductGeneral(name, currentLocation, ray, productService);
-		return new ResponseEntity<List<Product>>(points, HttpStatus.OK);
+		List<ProductBean> points = SearchTool.searchProductGeneral(name, currentLocation, ray, productService);
+		return new ResponseEntity<List<ProductBean>>(points, HttpStatus.OK);
 	}
 	
 	

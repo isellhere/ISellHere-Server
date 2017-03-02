@@ -10,6 +10,7 @@ import org.es.project.beans.AddNDeletePointOfSaleEvaluationBean;
 import org.es.project.beans.DeletePointOfSaleBean;
 import org.es.project.beans.EditPointOfSaleBean;
 import org.es.project.beans.GetPointOfSaleBean;
+import org.es.project.beans.modelbeans.PointOfSaleBean;
 import org.es.project.exceptions.ExceptionHandler;
 import org.es.project.exceptions.InvalidDataException;
 import org.es.project.exceptions.NotCreatorException;
@@ -44,7 +45,7 @@ public class PointOfSaleController {
 			method = RequestMethod.POST, 
 			consumes = MediaType.APPLICATION_JSON_VALUE, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<PointOfSale> createPointOfSale(@RequestBody AddNDeletePointOfSaleBean requestBody) throws ServletException{
+	public ResponseEntity<PointOfSaleBean> createPointOfSale(@RequestBody AddNDeletePointOfSaleBean requestBody) throws ServletException{
 		//PointOfSale point = pointOfSaleService.findByLocation(new Location(requestBody.getPointLongitude(), requestBody.getPointLatitude()));
 		//if(!Validator.isEmpty(point)){
 		//	throw new RuntimeException("There is already a point at this location");
@@ -58,22 +59,22 @@ public class PointOfSaleController {
 				requestBody.getPointImage());
 		
 		pointOfSaleService.save(newPoint);
-		return new ResponseEntity<>(newPoint, HttpStatus.CREATED); 
+		return new ResponseEntity<>(newPoint.createBean(), HttpStatus.CREATED); 
 	}
 		
 	@RequestMapping(value = "/get",
 					method = RequestMethod.POST,
 					consumes = MediaType.APPLICATION_JSON_VALUE,
 			        produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<PointOfSale> getPointOfSaleByLocation(@RequestBody GetPointOfSaleBean requestBody){
+	public ResponseEntity<PointOfSaleBean> getPointOfSaleByLocation(@RequestBody GetPointOfSaleBean requestBody){
 		//Location location = new Location(requestBody.getLongitude(), requestBody.getLatitude());
 		PointOfSale point = pointOfSaleService.findByName(requestBody.getPointName());
-		ResponseEntity<PointOfSale> result;
+		ResponseEntity<PointOfSaleBean> result;
 		
 		if(Validator.isEmpty(point)){
 			result = new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}else{
-			result = new ResponseEntity<>(point, HttpStatus.OK);
+			result = new ResponseEntity<>(point.createBean(), HttpStatus.OK);
 		}
 		
 		return result;
@@ -83,7 +84,7 @@ public class PointOfSaleController {
 					method = RequestMethod.PUT,
 					consumes = MediaType.APPLICATION_JSON_VALUE,
 					produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<PointOfSale> editPointOfSale(@RequestBody EditPointOfSaleBean requestBody) throws ServletException{
+	public ResponseEntity<PointOfSaleBean> editPointOfSale(@RequestBody EditPointOfSaleBean requestBody) throws ServletException{
 		try{
 			
 			PointOfSale point = pointOfSaleService.findByName(requestBody.getSelectedPoint());
@@ -111,7 +112,7 @@ public class PointOfSaleController {
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			}
 			
-			return new ResponseEntity<>(updatedPoint, HttpStatus.OK);
+			return new ResponseEntity<>(updatedPoint.createBean(), HttpStatus.OK);
 			
 		} catch(InvalidDataException ide){
 			throw new ServletException("An error has occurred: " +ide.getMessage());
@@ -127,7 +128,7 @@ public class PointOfSaleController {
 			method = RequestMethod.POST,
 			consumes = MediaType.APPLICATION_JSON_VALUE,
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<PointOfSale> deletePointOfSale(@RequestBody DeletePointOfSaleBean requestBody) throws ServletException{
+	public ResponseEntity<PointOfSaleBean> deletePointOfSale(@RequestBody DeletePointOfSaleBean requestBody) throws ServletException{
 		try{
 			PointOfSale pointToBeDeleted = pointOfSaleService.findByName(requestBody.getPointName());
 			if(Validator.isEmpty(pointToBeDeleted)){
@@ -144,7 +145,7 @@ public class PointOfSaleController {
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 				
 			}else{
-				return new ResponseEntity<>(deletedPoint, HttpStatus.OK);
+				return new ResponseEntity<>(deletedPoint.createBean(), HttpStatus.OK);
 			}
 		}catch(NotCreatorException nce){
 			throw new ServletException("An error has occurred: " + nce.getMessage());
@@ -158,7 +159,7 @@ public class PointOfSaleController {
 			method = RequestMethod.POST,
 			consumes = MediaType.APPLICATION_JSON_VALUE,
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<PointOfSale> evaluatePointOfSale(@RequestBody AddNDeletePointOfSaleEvaluationBean requestBody){
+	public ResponseEntity<PointOfSaleBean> evaluatePointOfSale(@RequestBody AddNDeletePointOfSaleEvaluationBean requestBody){
 		
 		User creator = userService.findByUsername(requestBody.getUser());
 		PointOfSale point = pointOfSaleService.findByName(requestBody.getPoint());
@@ -175,7 +176,7 @@ public class PointOfSaleController {
 		}else{
 			point.addEvaluation(requestBody.getGrade(), requestBody.getComment(), requestBody.getUser());
 		}
-		return new ResponseEntity<>(point, HttpStatus.CREATED);
+		return new ResponseEntity<>(point.createBean(), HttpStatus.CREATED);
 		
 	}
 	
@@ -198,14 +199,14 @@ public class PointOfSaleController {
 	@RequestMapping(value = "/getAllPoints",
 			method = RequestMethod.GET,
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<PointOfSale>> getAllPoints(){
+	public ResponseEntity<List<PointOfSaleBean>> getAllPoints(){
 		
-		List<PointOfSale> allPoints = new ArrayList<>();
+		List<PointOfSaleBean> allPoints = new ArrayList<>();
 		for(PointOfSale point : pointOfSaleService.findAll()){
-			allPoints.add(point);
+			allPoints.add(point.createBean());
 		}
 		
-		return new ResponseEntity<List<PointOfSale>>(allPoints, HttpStatus.OK);
+		return new ResponseEntity<List<PointOfSaleBean>>(allPoints, HttpStatus.OK);
 		
 	}
 	

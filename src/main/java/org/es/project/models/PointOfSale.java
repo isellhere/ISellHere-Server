@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import org.es.project.beans.modelbeans.PointOfSaleBean;
 import org.es.project.exceptions.NoCommentsException;
 
 @Entity
@@ -140,6 +141,10 @@ public class PointOfSale {
 		
 		
 		return recentComments;
+	}
+	
+	public PointOfSaleBean createBean(){
+		return new PointOfSaleBean(creator.getUsername(), name, comment, image, location);
 	}
 
 	//GETTERS AND SETTERS

@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.servlet.ServletException;
 
+import org.es.project.beans.AddNDeletePointOfSaleBean;
+import org.es.project.beans.GeneralSearchBean;
 import org.es.project.beans.modelbeans.PointOfSaleBean;
 import org.es.project.beans.modelbeans.ProductBean;
 import org.es.project.models.Location;
@@ -21,6 +23,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,17 +36,19 @@ public class SearchController {
 	private PointOfSaleService pointOfSaleService;
 	
 	
-	@RequestMapping(value = "/searchpoint/name={name}&latitude={latitude}&longitude={longitude}&ray={ray}", 
-			method = RequestMethod.GET, 
+	@RequestMapping(value = "/searchpoint", 
+			method = RequestMethod.POST, 
+			consumes = MediaType.APPLICATION_JSON_VALUE, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<PointOfSaleBean>> searchPointOfSale(@PathVariable String name, @PathVariable Double latitude, @PathVariable Double longitude, @PathVariable Integer ray){
-		Location currentLocation = new Location(longitude, latitude);
-		List<PointOfSaleBean> points = SearchTool.searchPointOfSale(name, currentLocation, ray, pointOfSaleService);
+	public ResponseEntity<List<PointOfSaleBean>> searchPointOfSale(@RequestBody GeneralSearchBean requestBody){
+		Location currentLocation = new Location(requestBody.getLongitude(), requestBody.getLatitude());
+		List<PointOfSaleBean> points = SearchTool.searchPointOfSale(requestBody.getName(), currentLocation, requestBody.getRay(), pointOfSaleService);
 		return new ResponseEntity<List<PointOfSaleBean>>(points, HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/searchproductinpoint/productname={productname}&pointname={pointname}", 
-			method = RequestMethod.GET, 
+	@RequestMapping(value = "/searchproductinpoint", 
+			method = RequestMethod.POST, 
+			consumes = MediaType.APPLICATION_JSON_VALUE, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<ProductBean>> searchProductInPoint(@PathVariable String productname, @PathVariable String pointname) throws ServletException{
 		try{
@@ -56,12 +61,13 @@ public class SearchController {
 		
 	}
 	
-	@RequestMapping(value = "/searchproductgeneral/name={name}&latitude={latitude}&longitude={longitude}&ray={ray}", 
-			method = RequestMethod.GET, 
+	@RequestMapping(value = "/searchproductgeneral", 
+			method = RequestMethod.POST, 
+			consumes = MediaType.APPLICATION_JSON_VALUE, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<ProductBean>> searchProductGeneral(@PathVariable String name, @PathVariable Double latitude, @PathVariable Double longitude, @PathVariable Integer ray){
-		Location currentLocation = new Location(longitude, latitude);
-		List<ProductBean> points = SearchTool.searchProductGeneral(name, currentLocation, ray, productService);
+	public ResponseEntity<List<ProductBean>> searchProductGeneral(@RequestBody GeneralSearchBean requestBody){
+		Location currentLocation = new Location(requestBody.getLongitude(), requestBody.getLatitude());
+		List<ProductBean> points = SearchTool.searchProductGeneral(requestBody.getName(), currentLocation, requestBody.getRay(), productService);
 		return new ResponseEntity<List<ProductBean>>(points, HttpStatus.OK);
 	}
 	

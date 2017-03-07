@@ -1,5 +1,6 @@
 package org.es.project.exceptions;
 
+import org.es.project.beans.AddNDeleteProductBean;
 import org.es.project.beans.AddNDeleteProductEvaluationBean;
 import org.es.project.beans.EditPointOfSaleBean;
 import org.es.project.beans.EditProductBean;
@@ -64,16 +65,30 @@ public class ExceptionHandler {
 				body.getProductName() == null 
 				|| body.getSelectedProduct() == null 
 				|| body.getProductComment() == null 
-				|| body.getProductImage() == null
-				|| body.getProductPrice() <= 0){
+				|| body.getProductImage() == null){
 			
 			throw new InvalidDataException("One of the fields is null");
 		}
 		
-		if(!(requester.equals(product.getCreator()) || requester.equals(product.getPointOfSale().getCreator()))){
-			throw new NotCreatorException();
+		if(body.getProductPrice() < 0){
+			
+			throw new InvalidDataException("Price can not be negative");
 		}
+	}
 		
+	public static void checkAddProductBody(AddNDeleteProductBean body){
+			if(body.getCreator() == null ||
+					body.getProductName() == null 
+					|| body.getProductComment() == null 
+					|| body.getProductImage() == null){
+				
+				throw new InvalidDataException("One of the fields is null");
+			}
+			
+			if(body.getProductPrice() < 0){
+				
+				throw new InvalidDataException("Price can not be negative");
+			}
 	}	
 
 }

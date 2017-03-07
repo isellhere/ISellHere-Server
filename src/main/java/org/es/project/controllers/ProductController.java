@@ -51,6 +51,7 @@ public class ProductController {
 			consumes = MediaType.APPLICATION_JSON_VALUE, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ProductBean> createProduct(@RequestBody AddNDeleteProductBean requestBody){
+		ExceptionHandler.checkAddProductBody(requestBody);
 		User creator = userService.findByUsername(requestBody.getCreator());
 		PointOfSale point = pointOfSaleService.findByName(requestBody.getPointOfSale());
 		if(Validator.isEmpty(point)){

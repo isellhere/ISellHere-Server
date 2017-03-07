@@ -97,7 +97,7 @@ public class ProductController {
 			
 			Product product = productService.findByName(requestBody.getSelectedProduct());
 			if(Validator.isEmpty(product)){
-				throw new RuntimeException("Invalid point");
+				throw new RuntimeException("Invalid product");
 			}
 			
 			User requester = userService.findByUsername(requestBody.getRequester());
@@ -151,7 +151,7 @@ public class ProductController {
 			
 			Product productToBeDeleted = productService.findByName(requestBody.getProductName());
 			if(Validator.isEmpty(productToBeDeleted)){
-				throw new RuntimeException("Invalid point");
+				throw new RuntimeException("Invalid product");
 			}
 			
 			User requester = userService.findByUsername(requestBody.getRequester());

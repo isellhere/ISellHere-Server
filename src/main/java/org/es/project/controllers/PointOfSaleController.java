@@ -5,8 +5,8 @@ import java.util.List;
 
 import javax.servlet.ServletException;
 
-import org.es.project.beans.AddNDeletePointOfSaleBean;
-import org.es.project.beans.AddNDeletePointOfSaleEvaluationBean;
+import org.es.project.beans.AddPointOfSaleBean;
+import org.es.project.beans.AddPointOfSaleEvaluationBean;
 import org.es.project.beans.DeletePointOfSaleBean;
 import org.es.project.beans.EditPointOfSaleBean;
 import org.es.project.beans.GetPointOfSaleBean;
@@ -44,7 +44,7 @@ public class PointOfSaleController {
 			method = RequestMethod.POST, 
 			consumes = MediaType.APPLICATION_JSON_VALUE, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<PointOfSaleBean> createPointOfSale(@RequestBody AddNDeletePointOfSaleBean requestBody) throws ServletException{
+	public ResponseEntity<PointOfSaleBean> createPointOfSale(@RequestBody AddPointOfSaleBean requestBody) throws ServletException{
 		User creator = userService.findByUsername(requestBody.getCreator());
 		if(Validator.isEmpty(creator)){
 			throw new RuntimeException("Invalid Username");
@@ -154,7 +154,7 @@ public class PointOfSaleController {
 			method = RequestMethod.POST,
 			consumes = MediaType.APPLICATION_JSON_VALUE,
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<PointOfSaleBean> evaluatePointOfSale(@RequestBody AddNDeletePointOfSaleEvaluationBean requestBody){
+	public ResponseEntity<PointOfSaleBean> evaluatePointOfSale(@RequestBody AddPointOfSaleEvaluationBean requestBody){
 		
 		User creator = userService.findByUsername(requestBody.getUser());
 		PointOfSale point = pointOfSaleService.findByName(requestBody.getPoint());
@@ -165,12 +165,9 @@ public class PointOfSaleController {
 		if(Validator.isEmpty(creator)){
 			throw new RuntimeException("Invalid Username");
 		}
-		if(requestBody.getComment().equals("")){
-			point.addEvaluation(requestBody.getGrade(), requestBody.getUser());
 		
-		}else{
-			point.addEvaluation(requestBody.getGrade(), requestBody.getComment(), requestBody.getUser());
-		}
+		point.addEvaluation(requestBody.getGrade(), requestBody.getComment(), requestBody.getUser());
+		
 		return new ResponseEntity<>(point.createBean(), HttpStatus.CREATED);
 		
 	}

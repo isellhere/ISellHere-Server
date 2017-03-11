@@ -4,6 +4,7 @@ import javax.servlet.ServletException;
 
 import org.es.project.beans.EditUserBean;
 import org.es.project.beans.RegistrationBean;
+import org.es.project.beans.modelbeans.UserBean;
 import org.es.project.exceptions.ExceptionHandler;
 import org.es.project.exceptions.InvalidRegistrationBodyException;
 import org.es.project.exceptions.Validator;
@@ -33,12 +34,12 @@ public class UserController {
 			method = RequestMethod.POST, 
 			consumes = MediaType.APPLICATION_JSON_VALUE, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<User> createUser(@RequestBody RegistrationBean requestBody) throws ServletException{
+	public ResponseEntity<UserBean> createUser(@RequestBody RegistrationBean requestBody) throws ServletException{
 		try{
 			ExceptionHandler.checkRegistrationBody(requestBody);
 			User newUser = new User(requestBody.getUsername(), requestBody.getEmail(), requestBody.getPassword());
 			userService.save(newUser);
-			return new ResponseEntity<>(newUser, HttpStatus.CREATED); // Vai ser http mesmo?
+			return new ResponseEntity<UserBean>(newUser.createBean(), HttpStatus.CREATED);
 			
 		} catch(InvalidRegistrationBodyException irbe){
 			throw new ServletException("An error has occurred: " +irbe.getMessage());
@@ -50,10 +51,10 @@ public class UserController {
 	@RequestMapping(value = "/get/{username}", 
 			method = RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<User> getUser(@PathVariable String username){
+	public ResponseEntity<UserBean> getUser(@PathVariable String username){
 		
 		User dbUser = userService.findByUsername(username);
-		ResponseEntity<User> response;
+		ResponseEntity<UserBean> response;
 		if(Validator.isEmpty(dbUser)){
 			response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}else{
@@ -67,21 +68,21 @@ public class UserController {
 			method = RequestMethod.PUT, 
 			consumes = MediaType.APPLICATION_JSON_VALUE, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<User> updateUser(@RequestBody User reqBody) {
+	public ResponseEntity<UserBean> updateUser(@RequestBody User reqBody) {
 		User updatedUser = userService.update(reqBody);
 
 		if (updatedUser == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 
-		return new ResponseEntity<>(updatedUser, HttpStatus.OK);
+		return new ResponseEntity<>(updatedUser.createBean(), HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/edit", 
 			method = RequestMethod.PUT, 
 			consumes = MediaType.APPLICATION_JSON_VALUE, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<User> editUser(@RequestBody EditUserBean reqBody) throws ServletException{
+	public ResponseEntity<UserBean> editUser(@RequestBody EditUserBean reqBody) throws ServletException{
 		try{
 			ExceptionHandler.checkPassword(reqBody.getNewPassword());
 			ExceptionHandler.checkPassword(reqBody.getOldPassword());
@@ -96,7 +97,7 @@ public class UserController {
 			
 			User updatedUser = userService.update(dbUser);
 			
-			return new ResponseEntity<User>(updatedUser, HttpStatus.OK);
+			return new ResponseEntity<UserBean>(updatedUser.createBean(), HttpStatus.OK);
 		} catch(InvalidRegistrationBodyException irbe){
 			throw new ServletException("An error has occurred: " +irbe.getMessage());
 		} catch(DataAccessException dae){

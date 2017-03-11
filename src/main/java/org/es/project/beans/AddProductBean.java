@@ -1,7 +1,7 @@
 package org.es.project.beans;
 
 
-public class AddNDeleteProductBean {
+public class AddProductBean {
 	private String creator;
 	private String pointOfSale;
 	private String productName;
@@ -11,7 +11,7 @@ public class AddNDeleteProductBean {
 	
 	
 	
-	public AddNDeleteProductBean(String creator, String pointOfSale, String productName, String productComment,
+	public AddProductBean(String creator, String pointOfSale, String productName, String productComment,
 			double productPrice, String productImage) {
 		this.creator = creator;
 		this.pointOfSale = pointOfSale;
@@ -21,7 +21,7 @@ public class AddNDeleteProductBean {
 		this.productImage = productImage;
 	}
 	
-	public AddNDeleteProductBean(){
+	public AddProductBean(){
 		
 	}
 

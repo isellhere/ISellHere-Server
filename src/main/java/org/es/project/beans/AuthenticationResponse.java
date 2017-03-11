@@ -1,13 +1,13 @@
 package org.es.project.beans;
 
-import org.es.project.models.User;
+import org.es.project.beans.modelbeans.UserBean;
 
 public class AuthenticationResponse {
 	private String token;
-	private User user;
+	private UserBean user;
 	
 	
-	public AuthenticationResponse(String token, User user) {
+	public AuthenticationResponse(String token, UserBean user) {
 		this.token = token;
 		this.user = user;
 	}
@@ -18,7 +18,7 @@ public class AuthenticationResponse {
 	}
 	
 	
-	public User getUser() {
+	public UserBean getUser() {
 		return user;
 	}
 }

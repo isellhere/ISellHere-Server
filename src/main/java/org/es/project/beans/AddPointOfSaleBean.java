@@ -1,7 +1,7 @@
 package org.es.project.beans;
 
 
-public class AddNDeletePointOfSaleBean {
+public class AddPointOfSaleBean {
 	private String creator;
 	private String pointName;
 	private double pointLongitude;
@@ -10,7 +10,7 @@ public class AddNDeletePointOfSaleBean {
 	private String pointImage;
 	
 	
-	public AddNDeletePointOfSaleBean(String creator, String pointName, double pointLongitude, double pointLatitude, String pointComment, String pointImage) {
+	public AddPointOfSaleBean(String creator, String pointName, double pointLongitude, double pointLatitude, String pointComment, String pointImage) {
 		this.creator = creator;
 		this.pointName = pointName;
 		this.pointLongitude = pointLongitude;
@@ -19,7 +19,7 @@ public class AddNDeletePointOfSaleBean {
 		this.pointImage = pointImage;
 	}
 
-	public AddNDeletePointOfSaleBean(){
+	public AddPointOfSaleBean(){
 		
 	}
 

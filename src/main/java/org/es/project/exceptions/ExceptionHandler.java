@@ -1,6 +1,6 @@
 package org.es.project.exceptions;
 
-import org.es.project.beans.AddNDeleteProductBean;
+import org.es.project.beans.AddProductBean;
 import org.es.project.beans.EditPointOfSaleBean;
 import org.es.project.beans.EditProductBean;
 import org.es.project.beans.LoginBean;
@@ -75,7 +75,7 @@ public class ExceptionHandler {
 		}
 	}
 		
-	public static void checkAddProductBody(AddNDeleteProductBean body){
+	public static void checkAddProductBody(AddProductBean body){
 			if(body.getCreator() == null ||
 					body.getProductName() == null 
 					|| body.getProductComment() == null 

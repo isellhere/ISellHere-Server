@@ -39,7 +39,7 @@ public class AuthenticationController {
 			ExceptionHandler.checkLoginSuccess(requestBody, dbUser);
 			
 			String token = tokenBuilder.build(dbUser);
-			AuthenticationResponse response = new AuthenticationResponse(token, dbUser);
+			AuthenticationResponse response = new AuthenticationResponse(token, dbUser.createBean());
 			
 			return new ResponseEntity<>(response, HttpStatus.OK);
 		} catch(RuntimeException e) {

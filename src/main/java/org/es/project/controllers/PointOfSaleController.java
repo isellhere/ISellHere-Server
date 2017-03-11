@@ -46,9 +46,7 @@ public class PointOfSaleController {
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<PointOfSaleBean> createPointOfSale(@RequestBody AddPointOfSaleBean requestBody) throws ServletException{
 		User creator = userService.findByUsername(requestBody.getCreator());
-		if(Validator.isEmpty(creator)){
-			throw new RuntimeException("Invalid Username");
-		}
+		ExceptionHandler.checkUser(creator);
 		PointOfSale newPoint = new PointOfSale(creator, requestBody.getPointName(),
 				requestBody.getPointLongitude(), requestBody.getPointLatitude(), requestBody.getPointComment(),
 				requestBody.getPointImage());
@@ -83,13 +81,9 @@ public class PointOfSaleController {
 		try{
 			
 			PointOfSale point = pointOfSaleService.findByName(requestBody.getSelectedPoint());
-			if(Validator.isEmpty(point)){
-				throw new RuntimeException("Invalid Point");
-			}
+			ExceptionHandler.checkPointOfSale(point);
 			User requester = userService.findByUsername(requestBody.getRequester());
-			if(Validator.isEmpty(requester)){
-				throw new RuntimeException("Invalid Username");
-			}
+			ExceptionHandler.checkUser(requester);
 			
 			ExceptionHandler.checkEditPointOfSaleBody(requestBody, requester, point);
 			if(!point.getName().equals(requestBody.getPointName())){
@@ -126,14 +120,10 @@ public class PointOfSaleController {
 	public ResponseEntity<PointOfSaleBean> deletePointOfSale(@RequestBody DeletePointOfSaleBean requestBody) throws ServletException{
 		try{
 			PointOfSale pointToBeDeleted = pointOfSaleService.findByName(requestBody.getPointName());
-			if(Validator.isEmpty(pointToBeDeleted)){
-				throw new RuntimeException("Invalid Point");
-			}
+			ExceptionHandler.checkPointOfSale(pointToBeDeleted);
 			User requester = userService.findByUsername(requestBody.getRequester());
-			if(Validator.isEmpty(requester)){
-				throw new RuntimeException("Invalid Username");
-			}
-			if(!requester.equals(pointToBeDeleted.getCreator())) throw new NotCreatorException();
+			ExceptionHandler.checkUser(requester);
+			ExceptionHandler.checkUserPermission(requester, pointToBeDeleted);
 			
 			PointOfSale deletedPoint = pointOfSaleService.delete(pointToBeDeleted.getId());
 			if(Validator.isEmpty(deletedPoint)){
@@ -159,12 +149,8 @@ public class PointOfSaleController {
 		User creator = userService.findByUsername(requestBody.getUser());
 		PointOfSale point = pointOfSaleService.findByName(requestBody.getPoint());
 		
-		if(Validator.isEmpty(point)){
-			throw new RuntimeException("Invalid Point of Sale");
-		}
-		if(Validator.isEmpty(creator)){
-			throw new RuntimeException("Invalid Username");
-		}
+		ExceptionHandler.checkPointOfSale(point);
+		ExceptionHandler.checkUser(creator);
 		
 		point.addEvaluation(requestBody.getGrade(), requestBody.getComment(), requestBody.getUser());
 		
@@ -178,9 +164,7 @@ public class PointOfSaleController {
 	public ResponseEntity<List<Evaluation>> getEvaluation(@PathVariable String name){
 		PointOfSale point = pointOfSaleService.findByName(name);
 		
-		if(Validator.isEmpty(point)){
-			throw new RuntimeException("Invalid Point of sale");
-		}
+		ExceptionHandler.checkPointOfSale(point);
 		
 		List<Evaluation> evaluations = point.getEvaluations();
 		

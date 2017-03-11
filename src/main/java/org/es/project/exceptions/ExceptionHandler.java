@@ -40,8 +40,8 @@ public class ExceptionHandler {
 		}
 	}
 	
-	public static void checkLoginSuccess(LoginBean requestBody, User dbUser) {
-		if (Validator.isEmpty(dbUser) || !dbUser.getPassword().equals(requestBody.getPassword())) {
+	public static void checkLoginSuccess(String password, User dbUser) {
+		if (Validator.isEmpty(dbUser) || !dbUser.getPassword().equals(password)) {
 			throw new InvalidDataException("Invalid username or password.");
 		}
 	}
@@ -74,6 +74,14 @@ public class ExceptionHandler {
 			throw new InvalidDataException("Price can not be negative");
 		}
 	}
+	
+	public static void checkUserPermission(User user, PointOfSale point){
+		if(!point.getCreator().equals(user)) throw new NotCreatorException();
+	}
+	
+	public static void checkUserPermission(User user, Product product){
+		if(!(product.getCreator().equals(user) || product.getPointOfSale().getCreator().equals(user))) throw new NotCreatorException();
+	}
 		
 	public static void checkAddProductBody(AddProductBean body){
 			if(body.getCreator() == null ||
@@ -84,10 +92,37 @@ public class ExceptionHandler {
 				throw new InvalidDataException("One of the fields is null");
 			}
 			
+			
 			if(body.getProductPrice() < 0){
 				
 				throw new InvalidDataException("Price can not be negative");
 			}
-	}	
+	}
+	
+	public static void checkUser(User user){
+		if(Validator.isEmpty(user)){
+			throw new InvalidDataException("User not found");
+		}
+	}
+	
+	public static void checkPointOfSale(PointOfSale point){
+		if(Validator.isEmpty(point)){
+			throw new InvalidDataException("Point not found");
+		}
+	}
+	
+	public static void checkProduct(Product product){
+		if(Validator.isEmpty(product)){
+			throw new InvalidDataException("Product not found");
+		}
+	}
+	
+	public static void checkProductExistence(PointOfSale point, String productName){
+		for(Product product: point.getProducts()){
+			if(product.getName().equals(productName)){
+				throw new RuntimeException("There is already a product with this name at this point of sale");
+			}
+		}
+	}
 
 }

@@ -1,5 +1,6 @@
 package org.es.project.exceptions;
 
+import org.es.project.beans.AddPointOfSaleBean;
 import org.es.project.beans.AddProductBean;
 import org.es.project.beans.EditPointOfSaleBean;
 import org.es.project.beans.EditProductBean;
@@ -21,6 +22,9 @@ public class ExceptionHandler {
 		}
 		
 		checkPassword(body.getPassword());
+		checkStringLength(body.getUsername(), "Username", 30);
+		checkStringLength(body.getPassword(), "Password", 50);
+		checkStringLength(body.getEmail(), "Email", 100);
 		
 	}
 	
@@ -56,6 +60,9 @@ public class ExceptionHandler {
 		if(!requester.equals(point.getCreator())){
 			throw new NotCreatorException();
 		}
+		checkStringLength(requestBody.getPointName(), "Point Name", 50);
+		checkStringLength(requestBody.getPointComment(), "Comment", 200);
+		
 			
 	}
 	
@@ -73,6 +80,9 @@ public class ExceptionHandler {
 			
 			throw new InvalidDataException("Price can not be negative");
 		}
+		
+		checkStringLength(body.getProductName(), "Product Name", 50);
+		checkStringLength(body.getProductComment(), "Comment", 200);
 	}
 	
 	public static void checkUserPermission(User user, PointOfSale point){
@@ -97,6 +107,9 @@ public class ExceptionHandler {
 				
 				throw new InvalidDataException("Price can not be negative");
 			}
+			
+			checkStringLength(body.getProductName(), "Product Name", 50);
+			checkStringLength(body.getProductComment(), "Comment", 200);
 	}
 	
 	public static void checkUser(User user){
@@ -124,5 +137,21 @@ public class ExceptionHandler {
 			}
 		}
 	}
+	
+	public static void checkNewPointOfSale(AddPointOfSaleBean bean){
+		if(Validator.isEmpty(bean.getPointName())){
+			throw new RuntimeException("Invalid name");
+		}
+		checkStringLength(bean.getPointName(), "Point Name", 50);
+		checkStringLength(bean.getPointComment(), "Comment", 200);
+	}
+	
+	public static void checkStringLength(String name, String field, int num){
+		if(name.length() > num){
+			throw new RuntimeException(field+ " can't have more than " +num+ " characters");
+		}
+	}
+	
+	
 
 }

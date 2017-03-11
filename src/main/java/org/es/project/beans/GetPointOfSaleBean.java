@@ -1,7 +1,5 @@
 package org.es.project.beans;
 
-import org.es.project.models.Location;
-import org.es.project.models.User;
 
 public class GetPointOfSaleBean {
 	private String pointName;

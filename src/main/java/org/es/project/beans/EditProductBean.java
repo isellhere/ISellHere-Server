@@ -1,9 +1,5 @@
 package org.es.project.beans;
 
-import java.io.File;
-
-import org.es.project.models.Product;
-import org.es.project.models.User;
 
 public class EditProductBean {
 	private String requester;

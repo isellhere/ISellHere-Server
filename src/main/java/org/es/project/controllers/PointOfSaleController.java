@@ -16,7 +16,6 @@ import org.es.project.exceptions.InvalidDataException;
 import org.es.project.exceptions.NotCreatorException;
 import org.es.project.exceptions.Validator;
 import org.es.project.models.Evaluation;
-import org.es.project.models.Location;
 import org.es.project.models.PointOfSale;
 import org.es.project.models.User;
 import org.es.project.services.implementations.PointOfSaleServiceImpl;
@@ -46,10 +45,6 @@ public class PointOfSaleController {
 			consumes = MediaType.APPLICATION_JSON_VALUE, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<PointOfSaleBean> createPointOfSale(@RequestBody AddNDeletePointOfSaleBean requestBody) throws ServletException{
-		//PointOfSale point = pointOfSaleService.findByLocation(new Location(requestBody.getPointLongitude(), requestBody.getPointLatitude()));
-		//if(!Validator.isEmpty(point)){
-		//	throw new RuntimeException("There is already a point at this location");
-		//}
 		User creator = userService.findByUsername(requestBody.getCreator());
 		if(Validator.isEmpty(creator)){
 			throw new RuntimeException("Invalid Username");

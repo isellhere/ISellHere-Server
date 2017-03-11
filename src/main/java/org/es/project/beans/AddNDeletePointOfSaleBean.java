@@ -1,11 +1,5 @@
 package org.es.project.beans;
 
-import java.io.File;
-import java.util.List;
-
-import org.es.project.models.Evaluation;
-import org.es.project.models.Product;
-import org.es.project.models.User;
 
 public class AddNDeletePointOfSaleBean {
 	private String creator;

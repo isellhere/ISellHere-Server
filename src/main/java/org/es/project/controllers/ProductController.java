@@ -5,8 +5,8 @@ import java.util.List;
 
 import javax.servlet.ServletException;
 
-import org.es.project.beans.AddNDeleteProductBean;
-import org.es.project.beans.AddNDeleteProductEvaluationBean;
+import org.es.project.beans.AddProductBean;
+import org.es.project.beans.AddProductEvaluationBean;
 import org.es.project.beans.DeleteProductBean;
 import org.es.project.beans.EditProductBean;
 import org.es.project.beans.GetProductBean;
@@ -49,7 +49,7 @@ public class ProductController {
 			method = RequestMethod.POST, 
 			consumes = MediaType.APPLICATION_JSON_VALUE, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ProductBean> createProduct(@RequestBody AddNDeleteProductBean requestBody){
+	public ResponseEntity<ProductBean> createProduct(@RequestBody AddProductBean requestBody){
 		ExceptionHandler.checkAddProductBody(requestBody);
 		User creator = userService.findByUsername(requestBody.getCreator());
 		PointOfSale point = pointOfSaleService.findByName(requestBody.getPointOfSale());
@@ -182,7 +182,7 @@ public class ProductController {
 			method = RequestMethod.POST,
 			consumes = MediaType.APPLICATION_JSON_VALUE,
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ProductBean> evaluateProduct(@RequestBody AddNDeleteProductEvaluationBean requestBody){
+	public ResponseEntity<ProductBean> evaluateProduct(@RequestBody AddProductEvaluationBean requestBody){
 		
 		User creator = userService.findByUsername(requestBody.getUser());
 		Product product = productService.findByName(requestBody.getProduct());
@@ -193,12 +193,9 @@ public class ProductController {
 		if(Validator.isEmpty(creator)){
 			throw new RuntimeException("Invalid Username");
 		}
-		if(requestBody.getComment().equals("")){
-			product.addEvaluation(requestBody.getGrade(), requestBody.getUser());
 		
-		}else{
-			product.addEvaluation(requestBody.getGrade(), requestBody.getComment(), requestBody.getUser());
-		}
+		product.addEvaluation(requestBody.getGrade(), requestBody.getComment(), requestBody.getUser());
+		
 		return new ResponseEntity<>(product.createBean(), HttpStatus.CREATED);
 		
 	}

@@ -51,37 +51,10 @@ public class PointOfSale {
 		this.products = new ArrayList<>();
 		this.evaluations = new ArrayList<>();
 	}
-	
-	
-	public PointOfSale(User creator, String name, double longitude, double latitude, String comment){
-		this(creator, name, longitude, latitude, comment, null);
-	}
-	
-	public PointOfSale(User creator, String name, double longitude, String image, double latitude){
-		this(creator, name, longitude, latitude, "", image);
-	}
-	
-	public PointOfSale(User creator, String name, double longitude, double latitude){
-		this(creator, name, longitude, latitude, "", null);
-	}
+
 
 	public Product addProduct(User creator, String name, double price, String comment, String image){
 		Product product = new Product(creator, this, name, price, comment, image);
-		getProducts().add(product);
-		return product;
-	}
-	public Product addProduct(User creator, String name, String comment,  double price){
-		Product product = new Product(creator, this, name, price, comment);
-		getProducts().add(product);
-		return product;
-	}
-	public Product addProduct(User creator, String name, double price, String image){
-		Product product = new Product(creator, this, name, price, image);
-		getProducts().add(product);
-		return product;
-	}
-	public Product addProduct(User creator, String name, double price){
-		Product product = new Product(creator, this, name, price);
 		getProducts().add(product);
 		return product;
 	}
@@ -107,10 +80,6 @@ public class PointOfSale {
 		evaluations.add(evaluation);
 	}
 	
-	public void addEvaluation(int grade, String creatorUsername){
-		Evaluation evaluation = new Evaluation(grade, creatorUsername);
-		evaluations.add(evaluation);
-	}
 	
 	public double showPointOfSaleGrade(){
 		double grade = 0.0;
@@ -203,22 +172,6 @@ public class PointOfSale {
 
 	public void setImage(String image) {
 		this.image = image;
-	}
-	
-	public void setCreator(User creator) {
-		this.creator = creator;
-	}
-
-	public void setLocation(Location location) {
-		this.location = location;
-	}
-
-	public void setProducts(List<Product> products) {
-		this.products = products;
-	}
-
-	public void setEvaluations(List<Evaluation> evaluations) {
-		this.evaluations = evaluations;
 	}
 
 

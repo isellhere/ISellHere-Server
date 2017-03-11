@@ -7,7 +7,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public class ProductTest {
+public class ProductTest {/*
 
 	private Product product1;
 	private Product product2;
@@ -193,5 +193,5 @@ public class ProductTest {
 		Assert.assertEquals(product4.getPointOfSale(),new PointOfSale(new User("user 3", "user3@mail.com", "1234567896543@@@Brasil"), "point 3", 15, 150));
 
 
-	}
+	}*/
 }

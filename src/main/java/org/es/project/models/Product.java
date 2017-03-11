@@ -48,27 +48,9 @@ public class Product {
 		evaluations = new ArrayList<>();
 	}
 	
-	public Product(User creator, PointOfSale pointOfSale, String name, double price, String comment){
-		this(creator, pointOfSale, name, price, comment, null);
-	}
-	
-	public Product(User creator, PointOfSale pointOfSale, String name, String image, double price){
-		this(creator, pointOfSale, name, price, "", image);
-	}
-	
-	public Product(User creator, PointOfSale pointOfSale, String name, double price){
-		this(creator, pointOfSale, name, price, "", null);
-	}
-	
-	//lembrar que algumas operações so o criador do produto e do ponto de venda pode fazer
 	
 	public void addEvaluation(int grade, String comment, String creatorUsername){
 		Evaluation evaluation = new Evaluation(grade, comment, creatorUsername);
-		evaluations.add(evaluation);
-	}
-	
-	public void addEvaluation(int grade, String creatorUsername){
-		Evaluation evaluation = new Evaluation(grade, creatorUsername);
 		evaluations.add(evaluation);
 	}
 	
@@ -134,7 +116,6 @@ public class Product {
 		return creator;
 	}
 	
-	// Deve haver uma checagem se o usuario tem permissao de realizar tal ação. Isso deve ser feito em services.
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -157,22 +138,6 @@ public class Product {
 	
 	public List<Evaluation> getEvaluations(){
 		return evaluations;
-	}
-	
-	
-
-	public void setCreator(User creator) {
-		this.creator = creator;
-	}
-
-
-	public void setPointOfSale(PointOfSale pointOfSale) {
-		this.pointOfSale = pointOfSale;
-	}
-
-
-	public void setEvaluations(List<Evaluation> evaluations) {
-		this.evaluations = evaluations;
 	}
 
 

@@ -1,21 +1,21 @@
 package org.es.project.beans;
 
 
-public class AddNDeleteProductEvaluationBean {
+public class AddPointOfSaleEvaluationBean {
 	private String user;
-	private String product;
+	private String point;
 	private int grade;
 	private String comment;
 	
 	
-	public AddNDeleteProductEvaluationBean(String user, String product, int grade, String comment) {
+	public AddPointOfSaleEvaluationBean(String user, String point, int grade, String comment) {
 		this.user = user;
-		this.product = product;
+		this.point = point;
 		this.grade = grade;
 		this.comment = comment;
 	}
 	
-	public AddNDeleteProductEvaluationBean(){
+	public AddPointOfSaleEvaluationBean(){
 		
 	}
 
@@ -27,12 +27,12 @@ public class AddNDeleteProductEvaluationBean {
 		this.user = user;
 	}
 
-	public String getProduct() {
-		return product;
+	public String getPoint() {
+		return point;
 	}
 
-	public void setProduct(String product) {
-		this.product = product;
+	public void setPoint(String point) {
+		this.point = point;
 	}
 
 	public int getGrade() {
@@ -51,5 +51,5 @@ public class AddNDeleteProductEvaluationBean {
 		this.comment = comment;
 	}
 	
-	
+
 }

@@ -1,7 +1,5 @@
 package org.es.project.beans;
 
-import org.es.project.models.PointOfSale;
-import org.es.project.models.User;
 
 public class AddNDeletePointOfSaleEvaluationBean {
 	private String user;

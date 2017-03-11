@@ -4,13 +4,11 @@ import java.util.List;
 
 import javax.servlet.ServletException;
 
-import org.es.project.beans.AddNDeletePointOfSaleBean;
 import org.es.project.beans.GeneralSearchBean;
 import org.es.project.beans.modelbeans.PointOfSaleBean;
 import org.es.project.beans.modelbeans.ProductBean;
 import org.es.project.models.Location;
 import org.es.project.models.PointOfSale;
-import org.es.project.models.Product;
 import org.es.project.services.implementations.PointOfSaleServiceImpl;
 import org.es.project.services.implementations.ProductServiceImpl;
 import org.es.project.services.interfaces.PointOfSaleService;

@@ -1,6 +1,5 @@
 package org.es.project.beans;
 
-import org.es.project.models.User;
 
 public class DeleteProductBean {
 	String requester;

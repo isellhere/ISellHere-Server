@@ -16,7 +16,6 @@ import org.es.project.exceptions.InvalidDataException;
 import org.es.project.exceptions.NotCreatorException;
 import org.es.project.exceptions.Validator;
 import org.es.project.models.Evaluation;
-import org.es.project.models.Location;
 import org.es.project.models.PointOfSale;
 import org.es.project.models.Product;
 import org.es.project.models.User;

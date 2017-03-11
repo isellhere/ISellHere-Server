@@ -86,6 +86,7 @@ public class UserController {
 		try{
 			ExceptionHandler.checkPassword(reqBody.getNewPassword());
 			ExceptionHandler.checkPassword(reqBody.getOldPassword());
+			ExceptionHandler.checkStringLength(reqBody.getNewPassword(), "New Password", 50);
 			User dbUser = userService.findByUsername(reqBody.getUser());
 			ExceptionHandler.checkUser(dbUser);
 			ExceptionHandler.checkLoginSuccess(reqBody.getOldPassword(), dbUser);

@@ -45,6 +45,7 @@ public class PointOfSaleController {
 			consumes = MediaType.APPLICATION_JSON_VALUE, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<PointOfSaleBean> createPointOfSale(@RequestBody AddPointOfSaleBean requestBody) throws ServletException{
+		ExceptionHandler.checkNewPointOfSale(requestBody);
 		User creator = userService.findByUsername(requestBody.getCreator());
 		ExceptionHandler.checkUser(creator);
 		PointOfSale newPoint = new PointOfSale(creator, requestBody.getPointName(),

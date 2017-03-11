@@ -87,12 +87,8 @@ public class UserController {
 			ExceptionHandler.checkPassword(reqBody.getNewPassword());
 			ExceptionHandler.checkPassword(reqBody.getOldPassword());
 			User dbUser = userService.findByUsername(reqBody.getUser());
-			if(Validator.isEmpty(dbUser)){
-				throw new RuntimeException("Invalid Username");
-			}
-			if(!dbUser.getPassword().equals(reqBody.getOldPassword())){
-				throw new RuntimeException("Wrong Password");
-			}
+			ExceptionHandler.checkUser(dbUser);
+			ExceptionHandler.checkLoginSuccess(reqBody.getOldPassword(), dbUser);
 			dbUser.setPassword(reqBody.getNewPassword());
 			
 			User updatedUser = userService.update(dbUser);

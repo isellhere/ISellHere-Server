@@ -36,7 +36,7 @@ public class AuthenticationController {
 			ExceptionHandler.checkLoginBody(requestBody);
 			
 			User dbUser = userService.findByUsername(requestBody.getUsername());
-			ExceptionHandler.checkLoginSuccess(requestBody, dbUser);
+			ExceptionHandler.checkLoginSuccess(requestBody.getPassword(), dbUser);
 			
 			String token = tokenBuilder.build(dbUser);
 			AuthenticationResponse response = new AuthenticationResponse(token, dbUser.createBean());

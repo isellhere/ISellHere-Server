@@ -53,18 +53,9 @@ public class ProductController {
 		ExceptionHandler.checkAddProductBody(requestBody);
 		User creator = userService.findByUsername(requestBody.getCreator());
 		PointOfSale point = pointOfSaleService.findByName(requestBody.getPointOfSale());
-		if(Validator.isEmpty(point)){
-			throw new RuntimeException("Invalid point of sale");
-		}
-		if(Validator.isEmpty(creator)){
-			throw new RuntimeException("Invalid Username");
-		}
-		
-		for(Product product: point.getProducts()){
-			if(product.getName().equals(requestBody.getProductName())){
-				throw new RuntimeException("There is already a product with this name at this point of sale");
-			}
-		}
+		ExceptionHandler.checkPointOfSale(point);
+		ExceptionHandler.checkUser(creator);
+		ExceptionHandler.checkProductExistence(point, requestBody.getProductName());
 		Product newProduct = point.addProduct(creator, requestBody.getProductName(), requestBody.getProductPrice(), requestBody.getProductComment(), requestBody.getProductImage());
 		
 		productService.save(newProduct);
@@ -96,14 +87,10 @@ public class ProductController {
 		try{
 			
 			Product product = productService.findByName(requestBody.getSelectedProduct());
-			if(Validator.isEmpty(product)){
-				throw new RuntimeException("Invalid product");
-			}
+			ExceptionHandler.checkProduct(product);
 			
 			User requester = userService.findByUsername(requestBody.getRequester());
-			if(Validator.isEmpty(requester)){
-				throw new RuntimeException("Invalid Username");
-			}
+			ExceptionHandler.checkUser(requester);
 			
 			
 			ExceptionHandler.checkEditProductBody(requestBody, requester, product);
@@ -150,18 +137,12 @@ public class ProductController {
 		try{
 			
 			Product productToBeDeleted = productService.findByName(requestBody.getProductName());
-			if(Validator.isEmpty(productToBeDeleted)){
-				throw new RuntimeException("Invalid product");
-			}
+			ExceptionHandler.checkProduct(productToBeDeleted);
 			
 			User requester = userService.findByUsername(requestBody.getRequester());
-			if(Validator.isEmpty(requester)){
-				throw new RuntimeException("Invalid Username");
-			}
+			ExceptionHandler.checkUser(requester);
 			
-			if(!(requester.equals(productToBeDeleted.getCreator()) || requester.equals(productToBeDeleted.getPointOfSale().getCreator()))){
-				throw new NotCreatorException();
-			}
+			ExceptionHandler.checkUserPermission(requester, productToBeDeleted);
 			
 			productToBeDeleted.getPointOfSale().deleteProduct(productToBeDeleted.getName());
 			Product deletedProduct = productService.delete(productToBeDeleted.getId());
@@ -187,12 +168,8 @@ public class ProductController {
 		User creator = userService.findByUsername(requestBody.getUser());
 		Product product = productService.findByName(requestBody.getProduct());
 		
-		if(Validator.isEmpty(product)){
-			throw new RuntimeException("Invalid Product");
-		}
-		if(Validator.isEmpty(creator)){
-			throw new RuntimeException("Invalid Username");
-		}
+		ExceptionHandler.checkProduct(product);
+		ExceptionHandler.checkUser(creator);
 		
 		product.addEvaluation(requestBody.getGrade(), requestBody.getComment(), requestBody.getUser());
 		
@@ -206,9 +183,7 @@ public class ProductController {
 	public ResponseEntity<List<Evaluation>> getEvaluation(@PathVariable String name){
 		Product product = productService.findByName(name);
 		
-		if(Validator.isEmpty(product)){
-			throw new RuntimeException("Invalid Product");
-		}
+		ExceptionHandler.checkProduct(product);
 		
 		List<Evaluation> evaluations = product.getEvaluations();
 		
@@ -222,9 +197,7 @@ public class ProductController {
 	public ResponseEntity<List<ProductBean>> getProducts(@PathVariable String pointName){
 		PointOfSale point = pointOfSaleService.findByName(pointName);
 		
-		if(Validator.isEmpty(point)){
-			throw new RuntimeException("Invalid Point of Sale");
-		}
+		ExceptionHandler.checkPointOfSale(point);
 		List<ProductBean> products = new ArrayList<>();
 		for(Product product: point.getProducts()){
 			products.add(product.createBean());

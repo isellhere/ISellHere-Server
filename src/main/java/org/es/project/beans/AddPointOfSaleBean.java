@@ -9,7 +9,6 @@ public class AddPointOfSaleBean {
 	private String pointComment;
 	private String pointImage;
 	
-	
 	public AddPointOfSaleBean(String creator, String pointName, double pointLongitude, double pointLatitude, String pointComment, String pointImage) {
 		this.creator = creator;
 		this.pointName = pointName;

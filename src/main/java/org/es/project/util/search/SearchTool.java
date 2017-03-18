@@ -15,9 +15,9 @@ public class SearchTool {
 	
 	
 	
-	public static List<PointOfSaleBean> searchPointOfSale(String name, Location location, Integer ray, PointOfSaleService pointOfSaleService){
+	public static List<PointOfSaleBean> searchPointOfSale(String name, Location location, Integer ray, Iterable<PointOfSale> allPoints){
 		List<PointOfSaleBean> result = new ArrayList<>();
-		Iterable<PointOfSale> allPoints = pointOfSaleService.findAll();
+		//Iterable<PointOfSale> allPoints = pointOfSaleService.findAll();
 		for(PointOfSale point: allPoints){
 			if(distance(location.getLatitude(), location.getLongitude(), point.getLatitude(), point.getLongitude()) <= ray){
 				String searchingName = name.toLowerCase();
@@ -43,11 +43,11 @@ public class SearchTool {
 		return result;
 	}
 	
-	public static List<ProductBean> searchProductGeneral(String name, Location location, Integer ray, ProductService productService){
+	public static List<ProductBean> searchProductGeneral(String name, Location location, Integer ray, Iterable<Product> allProducts, PointOfSaleService pointOfSaleService){
 		List<ProductBean> result = new ArrayList<>();
-		Iterable<Product> allProducts = productService.findAll();
 		for(Product product : allProducts){
-			if(distance(location.getLatitude(), location.getLongitude(), product.getPointOfSale().getLatitude(), product.getPointOfSale().getLongitude()) <= ray){
+			PointOfSale point = pointOfSaleService.findByName(product.getPointOfSale());
+			if(distance(location.getLatitude(), location.getLongitude(), point.getLatitude(), point.getLongitude()) <= ray){
 				String searchingName = name.toLowerCase();
 				String productName = product.getName().toLowerCase();
 				if(productName.contains(searchingName)){

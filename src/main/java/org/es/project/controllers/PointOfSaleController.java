@@ -48,7 +48,7 @@ public class PointOfSaleController {
 		ExceptionHandler.checkNewPointOfSale(requestBody);
 		User creator = userService.findByUsername(requestBody.getCreator());
 		ExceptionHandler.checkUser(creator);
-		PointOfSale newPoint = new PointOfSale(creator, requestBody.getPointName(),
+		PointOfSale newPoint = new PointOfSale(creator.getUsername(), requestBody.getPointName(),
 				requestBody.getPointLongitude(), requestBody.getPointLatitude(), requestBody.getPointComment(),
 				requestBody.getPointImage());
 		
@@ -120,13 +120,14 @@ public class PointOfSaleController {
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<PointOfSaleBean> deletePointOfSale(@RequestBody DeletePointOfSaleBean requestBody) throws ServletException{
 		try{
+
 			PointOfSale pointToBeDeleted = pointOfSaleService.findByName(requestBody.getPointName());
 			ExceptionHandler.checkPointOfSale(pointToBeDeleted);
 			User requester = userService.findByUsername(requestBody.getRequester());
 			ExceptionHandler.checkUser(requester);
-			ExceptionHandler.checkUserPermission(requester, pointToBeDeleted);
-			
+			ExceptionHandler.checkUserPermission(requester, pointToBeDeleted);			
 			PointOfSale deletedPoint = pointOfSaleService.delete(pointToBeDeleted.getId());
+
 			if(Validator.isEmpty(deletedPoint)){
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 				

@@ -21,8 +21,7 @@ public class PointOfSale {
 	@GeneratedValue
 	private Long id;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
-	private User creator;
+	private String creator;
 	
 	@Column(unique = true)
 	private String name;
@@ -42,7 +41,7 @@ public class PointOfSale {
 		this.evaluations = new ArrayList<>();
 	}
 	
-	public PointOfSale(User creator, String name, double longitude, double latitude, String comment, String image){
+	public PointOfSale(String creator, String name, double longitude, double latitude, String comment, String image){
 		this.creator = creator;
 		this.name = name;
 		this.comment = comment;
@@ -53,8 +52,8 @@ public class PointOfSale {
 	}
 
 
-	public Product addProduct(User creator, String name, double price, String comment, String image){
-		Product product = new Product(creator, this, name, price, comment, image);
+	public Product addProduct(String creator, String name, double price, String comment, String image){
+		Product product = new Product(creator, this.name, name, price, comment, image);
 		getProducts().add(product);
 		return product;
 	}
@@ -113,11 +112,11 @@ public class PointOfSale {
 	}
 	
 	public PointOfSaleBean createBean(){
-		return new PointOfSaleBean(creator.getUsername(), name, comment, image, location);
+		return new PointOfSaleBean(creator, name, comment, image, location);
 	}
 
 	//GETTERS AND SETTERS
-	public User getCreator() {
+	public String getCreator() {
 		return creator;
 	}
 

@@ -10,6 +10,7 @@ import org.es.project.beans.AddProductEvaluationBean;
 import org.es.project.beans.DeleteProductBean;
 import org.es.project.beans.EditProductBean;
 import org.es.project.beans.GetProductBean;
+import org.es.project.beans.GetProductsInPointBean;
 import org.es.project.beans.modelbeans.ProductBean;
 import org.es.project.exceptions.ExceptionHandler;
 import org.es.project.exceptions.InvalidDataException;
@@ -56,7 +57,7 @@ public class ProductController {
 		ExceptionHandler.checkPointOfSale(point);
 		ExceptionHandler.checkUser(creator);
 		ExceptionHandler.checkProductExistence(point, requestBody.getProductName());
-		Product newProduct = point.addProduct(creator, requestBody.getProductName(), requestBody.getProductPrice(), requestBody.getProductComment(), requestBody.getProductImage());
+		Product newProduct = point.addProduct(creator.getUsername(), requestBody.getProductName(), requestBody.getProductPrice(), requestBody.getProductComment(), requestBody.getProductImage());
 		
 		productService.save(newProduct);
 		
@@ -140,11 +141,11 @@ public class ProductController {
 			ExceptionHandler.checkProduct(productToBeDeleted);
 			
 			User requester = userService.findByUsername(requestBody.getRequester());
+			PointOfSale point = pointOfSaleService.findByName(productToBeDeleted.getPointOfSale());
 			ExceptionHandler.checkUser(requester);
 			
-			ExceptionHandler.checkUserPermission(requester, productToBeDeleted);
-			
-			productToBeDeleted.getPointOfSale().deleteProduct(productToBeDeleted.getName());
+			ExceptionHandler.checkUserPermission(requester, productToBeDeleted, point);
+			point.deleteProduct(productToBeDeleted.getName());
 			Product deletedProduct = productService.delete(productToBeDeleted.getId());
 			if(Validator.isEmpty(deletedProduct)){
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -191,11 +192,12 @@ public class ProductController {
 		
 	}
 	
-	@RequestMapping(value = "/getProducts/{pointName}",
-			method = RequestMethod.GET,
+	@RequestMapping(value = "/getProducts",
+			method = RequestMethod.POST,
+			consumes = MediaType.APPLICATION_JSON_VALUE,
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<ProductBean>> getProducts(@PathVariable String pointName){
-		PointOfSale point = pointOfSaleService.findByName(pointName);
+	public ResponseEntity<List<ProductBean>> getProducts(@RequestBody GetProductsInPointBean requestBody){
+		PointOfSale point = pointOfSaleService.findByName(requestBody.getPointName());
 		
 		ExceptionHandler.checkPointOfSale(point);
 		List<ProductBean> products = new ArrayList<>();

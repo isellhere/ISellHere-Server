@@ -20,10 +20,9 @@ public class Product {
 	@Id
 	@GeneratedValue
 	private Long id;
-	@ManyToOne(cascade = CascadeType.ALL)
-	private User creator;
-	@ManyToOne(cascade = CascadeType.ALL)
-	private PointOfSale pointOfSale;
+	
+	private String creator;
+	private String pointOfSale;
 	private String name;
 	private String comment;
 	private double price;
@@ -38,7 +37,7 @@ public class Product {
 	}
 	
 	
-	public Product(User creator, PointOfSale pointOfSale, String name, double price, String comment, String image){
+	public Product(String creator, String pointOfSale, String name, double price, String comment, String image){
 		this.creator = creator;
 		this.pointOfSale = pointOfSale;
 		this.name = name;
@@ -86,7 +85,7 @@ public class Product {
 	}
 	
 	public ProductBean createBean(){
-		return new ProductBean(creator.getUsername(), pointOfSale.getName(), name, comment, price, image, evaluations);
+		return new ProductBean(creator, pointOfSale, name, comment, price, image, evaluations);
 	}
 	
 	
@@ -108,11 +107,11 @@ public class Product {
 		return image;
 	}
 	
-	public PointOfSale getPointOfSale(){
+	public String getPointOfSale(){
 		return pointOfSale;
 	}
 	
-	public User getCreator(){
+	public String getCreator(){
 		return creator;
 	}
 	

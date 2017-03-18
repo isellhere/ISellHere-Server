@@ -40,7 +40,7 @@ public class SearchController {
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<PointOfSaleBean>> searchPointOfSale(@RequestBody GeneralSearchBean requestBody){
 		Location currentLocation = new Location(requestBody.getLongitude(), requestBody.getLatitude());
-		List<PointOfSaleBean> points = SearchTool.searchPointOfSale(requestBody.getName(), currentLocation, requestBody.getRay(), pointOfSaleService);
+		List<PointOfSaleBean> points = SearchTool.searchPointOfSale(requestBody.getName(), currentLocation, requestBody.getRay(), pointOfSaleService.findAll());
 		return new ResponseEntity<List<PointOfSaleBean>>(points, HttpStatus.OK);
 	}
 	
@@ -65,7 +65,7 @@ public class SearchController {
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<ProductBean>> searchProductGeneral(@RequestBody GeneralSearchBean requestBody){
 		Location currentLocation = new Location(requestBody.getLongitude(), requestBody.getLatitude());
-		List<ProductBean> points = SearchTool.searchProductGeneral(requestBody.getName(), currentLocation, requestBody.getRay(), productService);
+		List<ProductBean> points = SearchTool.searchProductGeneral(requestBody.getName(), currentLocation, requestBody.getRay(), productService.findAll(), pointOfSaleService);
 		return new ResponseEntity<List<ProductBean>>(points, HttpStatus.OK);
 	}
 	

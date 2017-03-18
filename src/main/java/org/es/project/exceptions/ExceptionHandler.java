@@ -57,7 +57,7 @@ public class ExceptionHandler {
 				requestBody.getPointName() == null){
 			throw new InvalidDataException("One of the fields is null");
 		}
-		if(!requester.equals(point.getCreator())){
+		if(!requester.getUsername().equals(point.getCreator())){
 			throw new NotCreatorException();
 		}
 		checkStringLength(requestBody.getPointName(), "Point Name", 50);
@@ -86,11 +86,11 @@ public class ExceptionHandler {
 	}
 	
 	public static void checkUserPermission(User user, PointOfSale point){
-		if(!point.getCreator().equals(user)) throw new NotCreatorException();
+		if(!point.getCreator().equals(user.getUsername())) throw new NotCreatorException();
 	}
 	
-	public static void checkUserPermission(User user, Product product){
-		if(!(product.getCreator().equals(user) || product.getPointOfSale().getCreator().equals(user))) throw new NotCreatorException();
+	public static void checkUserPermission(User user, Product product, PointOfSale point){
+		if(!(product.getCreator().equals(user.getUsername()) || point.getCreator().equals(user.getUsername()))) throw new NotCreatorException();
 	}
 		
 	public static void checkAddProductBody(AddProductBean body){

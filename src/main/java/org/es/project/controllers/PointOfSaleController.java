@@ -60,7 +60,7 @@ public class PointOfSaleController {
 					method = RequestMethod.POST,
 					consumes = MediaType.APPLICATION_JSON_VALUE,
 			        produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<PointOfSaleBean> getPointOfSaleByLocation(@RequestBody GetPointOfSaleBean requestBody){
+	public ResponseEntity<PointOfSaleBean> getPointOfSale(@RequestBody GetPointOfSaleBean requestBody){
 		//Location location = new Location(requestBody.getLongitude(), requestBody.getLatitude());
 		PointOfSale point = pointOfSaleService.findByName(requestBody.getPointName());
 		ResponseEntity<PointOfSaleBean> result;

@@ -9,8 +9,11 @@ import org.es.project.beans.RegistrationBean;
 import org.es.project.models.PointOfSale;
 import org.es.project.models.Product;
 import org.es.project.models.User;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class ExceptionHandler {
+	
 	
 	public static void checkRegistrationBody(RegistrationBean body){
 		if(Validator.isUsernameInvalid(body.getUsername())){
@@ -45,7 +48,8 @@ public class ExceptionHandler {
 	}
 	
 	public static void checkLoginSuccess(String password, User dbUser) {
-		if (Validator.isEmpty(dbUser) || !dbUser.getPassword().equals(password)) {
+		PasswordEncoder encoder = new BCryptPasswordEncoder();
+		if (Validator.isEmpty(dbUser) || !encoder.matches(password, dbUser.getPassword())) {
 			throw new InvalidDataException("Invalid username or password.");
 		}
 	}

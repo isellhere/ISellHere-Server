@@ -56,6 +56,8 @@ You just need to run the following command:
 
 `mvn test`
 
+## Authors
+
 * **Benardi Nunes** - *Testing and Back-end* - [Benardi](https://github.com/Benardi)
 * **Iaron da Costa Araújo** - *Back-end* - [iaronaraujo](https://github.com/iaronaraujo)
 * **Hadrizia Santos** - *Back-end* - [iaronaraujo](https://github.com/iaronaraujo)

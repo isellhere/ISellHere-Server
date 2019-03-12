@@ -1,4 +1,4 @@
-[![Java: version](https://img.shields.io/badge/JAVA-%3E%3D%208-blue.svg)](https://www.oracle.com/technetwork/java/javase/overview/java8-2100321.html)
+[![Java: version](https://img.shields.io/badge/JAVA%20-7-blue.svg)](https://www.oracle.com/technetwork/java/javase/jdk7-relnotes-429209.html)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 # ISellHere Server
@@ -13,7 +13,7 @@ This is the default API application for the ISellHere platform. It is a RESTfull
 
 ## Prerequisites
 
-* `Java >= 8`
+* `Java 7`
 * Maven
 
 ## Building from source
@@ -63,7 +63,7 @@ You just need to run the following command:
 * **Hadrizia Santos** - *Back-end* - [iaronaraujo](https://github.com/iaronaraujo)
 * **Wesley Silva** - *Back-end* - [SILVAWesley](https://github.com/SILVAWesley)
 
-See also the list of [contributors](https://github.com/Benardi/numerical_methods/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/isellhere/ISellHere-Server/contributors) who participated in this project.
 
 ## License
 

@@ -17,17 +17,22 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+
 @RestController
 @RequestMapping(ServerConstants.USER_REQUEST)
 public class UserController {
 	
 	private UserService userService;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	
 	@RequestMapping(value = "/new", 
@@ -37,7 +42,7 @@ public class UserController {
 	public ResponseEntity<UserBean> createUser(@RequestBody RegistrationBean requestBody) throws ServletException{
 		try{
 			ExceptionHandler.checkRegistrationBody(requestBody);
-			User newUser = new User(requestBody.getUsername(), requestBody.getEmail(), requestBody.getPassword());
+			User newUser = new User(requestBody.getUsername(), requestBody.getEmail(), passwordEncoder.encode(requestBody.getPassword()));
 			userService.save(newUser);
 			return new ResponseEntity<UserBean>(newUser.createBean(), HttpStatus.CREATED);
 			
